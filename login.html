@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CubaMarket Admin — Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{background:#050C12;color:#DDE8EE;font-family:'DM Sans',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;position:relative;overflow:hidden}
+:root{--ac:#00C8F0;--gr:#00E896;--or:#FF6B35;--go:#F5C842;--re:#FF3D57;--s:#0C1A24;--s2:#112030;--b:#1B3348;--mu:#6A8FA8;--tx:#DDE8EE;--ad:rgba(0,200,240,.12);}
+.bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,200,240,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,200,240,.025) 1px,transparent 1px);background-size:48px 48px}
+.orb{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(0,200,240,.08),transparent 70%);top:-120px;left:50%;transform:translateX(-50%)}
+.orb2{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,53,.06),transparent 70%);bottom:-80px;right:10%}
+.box{position:relative;z-index:2;background:var(--s);border:1px solid var(--b);border-radius:20px;padding:40px;width:100%;max-width:390px;box-shadow:0 40px 80px rgba(0,0,0,.55)}
+.logo{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;text-align:center;margin-bottom:5px}
+.logo-b{background:linear-gradient(135deg,var(--ac),var(--gr));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.logo-f{background:linear-gradient(135deg,var(--or),var(--go));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.subtitle{text-align:center;font-size:.75rem;color:var(--mu);letter-spacing:.14em;text-transform:uppercase;margin-bottom:32px}
+.lbl{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:6px}
+.inp{width:100%;padding:12px 15px;background:var(--s2);border:1px solid var(--b);border-radius:10px;color:var(--tx);font-family:inherit;font-size:.92rem;outline:none;transition:border-color .2s;margin-bottom:15px}
+.inp:focus{border-color:var(--ac)}
+.err{background:rgba(255,61,87,.1);border:1px solid rgba(255,61,87,.25);color:#FF3D57;padding:10px 14px;border-radius:8px;font-size:.8rem;margin-bottom:14px;display:none}
+.btn-in{width:100%;padding:13px;background:linear-gradient(135deg,var(--ac),#0098BB);color:#000;border:none;border-radius:10px;font-family:inherit;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .25s}
+.btn-in:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,200,240,.4)}
+.hint{text-align:center;font-size:.72rem;color:var(--mu);margin-top:18px}
+.hint code{background:var(--s2);color:var(--ac);padding:2px 7px;border-radius:4px;font-family:monospace}
+.back-link{position:relative;z-index:2;margin-bottom:20px;font-size:.8rem;color:var(--mu);display:flex;align-items:center;gap:6px}
+.back-link a{color:var(--ac);text-decoration:none}
+.back-link a:hover{text-decoration:underline}
+.lock-icon{font-size:2.5rem;text-align:center;margin-bottom:16px}
+</style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="orb"></div>
+<div class="orb2"></div>
+<div class="back-link">← <a href="cubamarket.html">Volver al sitio web</a></div>
+<div class="box">
+  <div class="lock-icon">🔐</div>
+  <div class="logo"><span class="logo-b">Cuba</span><span class="logo-f">Market</span></div>
+  <div class="subtitle">Panel de Administración</div>
+  <label class="lbl">Usuario</label>
+  <input id="u" type="text" class="inp" placeholder="admin" autocomplete="username">
+  <label class="lbl">Contraseña</label>
+  <input id="p" type="password" class="inp" placeholder="••••••••" autocomplete="current-password">
+  <div id="err" class="err">⚠️ Usuario o contraseña incorrectos. Inténtalo de nuevo.</div>
+  <button class="btn-in" onclick="doLogin()">Entrar al Panel →</button>
+  <div class="hint">
+    Demo: usuario <code>admin</code> · contraseña <code>cubamarket2025</code>
+  </div>
+</div>
+<script>
+document.addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+function doLogin(){
+  const u=document.getElementById('u').value.trim();
+  const p=document.getElementById('p').value;
+  const err=document.getElementById('err');
+  if(u==='admin' && p==='cubamarket2025'){
+    sessionStorage.setItem('cm_admin','1');
+    location.href='admin-dashboard.html';
+  } else {
+    err.style.display='block';
+    document.getElementById('p').value='';
+    setTimeout(()=>err.style.display='none',3500);
+  }
+}
+// Already logged in
+if(sessionStorage.getItem('cm_admin')) location.href='admin-dashboard.html';
+</script>
+</body>
+</html>
