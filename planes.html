@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CubaMarket Admin — Pedidos</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px}
+body{background:#050C12;color:#DDE8EE;font-family:'DM Sans',sans-serif;overflow-x:hidden;display:flex;height:100vh}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+button{cursor:pointer;font-family:inherit}
+:root{
+  --bg:#050C12;--bg2:#080F16;--s:#0C1A24;--s2:#112030;
+  --b:#1B3348;--b2:#24445C;
+  --ac:#00C8F0;--ad:rgba(0,200,240,.12);
+  --gr:#00E896;--gd:rgba(0,232,150,.12);
+  --go:#F5C842;--yd:rgba(245,200,66,.12);
+  --or:#FF6B35;--re:#FF3D57;
+  --tx:#DDE8EE;--mu:#6A8FA8;--m2:#3D6070;
+}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--b2);border-radius:3px}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:9px;font-size:.84rem;font-weight:600;border:none;transition:all .2s;white-space:nowrap;cursor:pointer;font-family:'DM Sans',sans-serif;line-height:1}
+.bp{background:linear-gradient(135deg,var(--ac),#0098BB);color:#000}
+.bp:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,200,240,.35)}
+.bh{background:transparent;border:1px solid var(--b2);color:var(--tx)}
+.bh:hover{border-color:var(--ac);color:var(--ac)}
+.bg2{background:linear-gradient(135deg,var(--gr),#00AA70);color:#000}
+.bg2:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,232,150,.3)}
+.by2{background:linear-gradient(135deg,var(--go),var(--or));color:#000}
+.by2:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(245,200,66,.3)}
+.bd{background:rgba(255,61,87,.1);border:1px solid rgba(255,61,87,.25);color:var(--re)}
+.bd:hover{background:rgba(255,61,87,.2)}
+.bsm{padding:6px 13px;font-size:.75rem}
+.blg{padding:12px 26px;font-size:.95rem}
+.bbl{width:100%;justify-content:center}
+
+/* BADGE */
+.badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:999px;font-size:.67rem;font-weight:700;letter-spacing:.04em}
+.ba{background:var(--ad);border:1px solid rgba(0,200,240,.25);color:var(--ac)}
+.bg{background:var(--gd);border:1px solid rgba(0,232,150,.25);color:var(--gr)}
+.by{background:var(--yd);border:1px solid rgba(245,200,66,.25);color:var(--go)}
+.bo{background:rgba(255,107,53,.12);border:1px solid rgba(255,107,53,.25);color:var(--or)}
+.br{background:rgba(255,61,87,.12);border:1px solid rgba(255,61,87,.25);color:var(--re)}
+.bm{background:var(--s2);border:1px solid var(--b);color:var(--mu)}
+.dot-live{width:6px;height:6px;border-radius:50%;background:var(--gr);animation:pdot 1.8s infinite;display:inline-block}
+@keyframes pdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.7)}}
+
+/* SIDEBAR */
+.aside{width:220px;flex-shrink:0;background:var(--bg2);border-right:1px solid var(--b);display:flex;flex-direction:column;height:100vh;position:fixed;left:0;top:0;z-index:100}
+.abrand{padding:18px 16px;border-bottom:1px solid var(--b)}
+.ablogo{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;background:linear-gradient(135deg,var(--ac),var(--gr));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.absub{font-size:.62rem;color:var(--mu);letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
+.anav{flex:1;padding:12px 8px;overflow-y:auto}
+.ans{font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--m2);padding:5px 8px;margin-bottom:3px;margin-top:12px}
+.ans:first-child{margin-top:0}
+.anb{width:100%;display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;border:none;background:transparent;color:var(--mu);cursor:pointer;font-family:inherit;font-size:.82rem;font-weight:500;text-align:left;transition:all .18s;margin-bottom:2px}
+.anb:hover{background:rgba(255,255,255,.04);color:var(--tx)}
+.anb.on{background:var(--ad);color:var(--ac);font-weight:600}
+.auser{padding:12px;border-top:1px solid var(--b)}
+.aurow{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.aav{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--ac),var(--gr));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.78rem;color:#000;font-family:'Syne',sans-serif;flex-shrink:0}
+.aunm{font-size:.8rem;font-weight:600}
+.auem{font-size:.66rem;color:var(--mu)}
+
+/* MAIN */
+.amain{flex:1;margin-left:220px;height:100vh;overflow-y:auto;display:flex;flex-direction:column;width:calc(100% - 220px)}
+.atop{padding:14px 24px;border-bottom:1px solid var(--b);display:flex;align-items:center;justify-content:space-between;background:var(--bg2);flex-shrink:0;position:sticky;top:0;z-index:50}
+.atop-t{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem}
+.atop-s{font-size:.7rem;color:var(--mu);margin-top:1px}
+.atop-r{display:flex;align-items:center;gap:12px}
+.alive{display:flex;align-items:center;gap:6px;font-size:.7rem;color:var(--gr);font-weight:600}
+.aclk{padding:5px 12px;background:var(--s);border:1px solid var(--b);border-radius:8px;font-size:.74rem;color:var(--mu);font-family:monospace}
+.acont{padding:24px;flex:1}
+
+/* PAGE HEADER */
+.ph2{margin-bottom:24px}
+.ph2-t{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;margin-bottom:4px}
+.ph2-s{font-size:.85rem;color:var(--mu)}
+
+/* CARDS */
+.card{background:var(--s);border:1px solid var(--b);border-radius:14px}
+
+/* KPI row */
+.krow{display:grid;gap:14px;margin-bottom:20px}
+.krow4{grid-template-columns:repeat(4,1fr)}
+.krow3{grid-template-columns:repeat(3,1fr)}
+.kc{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:18px;position:relative;overflow:hidden}
+.kc::after{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.kc.kb::after{background:linear-gradient(90deg,var(--ac),transparent)}
+.kc.kg::after{background:linear-gradient(90deg,var(--gr),transparent)}
+.kc.ky::after{background:linear-gradient(90deg,var(--go),transparent)}
+.kc.ko::after{background:linear-gradient(90deg,var(--or),transparent)}
+.kclbl{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--mu);margin-bottom:8px}
+.kcval{font-family:'Syne',sans-serif;font-size:1.75rem;font-weight:800;line-height:1}
+.kc.kb .kcval{color:var(--ac)} .kc.kg .kcval{color:var(--gr)} .kc.ky .kcval{color:var(--go)} .kc.ko .kcval{color:var(--or)}
+.kctr{font-size:.7rem;color:var(--gr);margin-top:5px}
+
+/* TABLE */
+.tw{background:var(--s);border:1px solid var(--b);border-radius:14px;overflow:hidden}
+.at{width:100%;border-collapse:collapse;font-size:.8rem}
+.at thead{background:var(--s2)}
+.at th{text-align:left;padding:12px 15px;border-bottom:1px solid var(--b);font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--mu)}
+.at td{padding:12px 15px;border-bottom:1px solid rgba(27,51,72,.45)}
+.at tbody tr{transition:background .12s}
+.at tbody tr:hover{background:rgba(0,200,240,.023)}
+.at tbody tr:last-child td{border-bottom:none}
+
+/* PANEL CARD */
+.pcard2{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:22px}
+.pcard2.pop{border-color:rgba(0,200,240,.4)}
+.pcard2.eli{border-color:rgba(245,200,66,.3)}
+.pc2-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.pc2-name{font-family:'Syne',sans-serif;font-weight:700}
+.pef{margin-bottom:13px}
+.pelbl{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:5px}
+.pein{width:100%;padding:9px 13px;background:var(--s2);border:1px solid var(--b);border-radius:8px;color:var(--tx);font-family:inherit;font-size:.88rem;outline:none;transition:border-color .2s}
+.pein:focus{border-color:var(--ac)}
+
+/* CONFIG */
+.trow{display:flex;align-items:center;justify-content:space-between;background:var(--s2);border-radius:8px;padding:11px 14px;margin-bottom:8px}
+.trow span{font-size:.83rem}
+.tsw{position:relative;width:36px;height:20px;flex-shrink:0;display:inline-block}
+.tsw input{opacity:0;width:0;height:0;position:absolute}
+.ttrack{position:absolute;inset:0;background:var(--b2);border-radius:999px;cursor:pointer;transition:background .2s}
+.tsw input:checked+.ttrack{background:var(--ac)}
+.tknob{position:absolute;width:14px;height:14px;border-radius:50%;background:#000;top:3px;left:3px;transition:transform .2s;pointer-events:none}
+.tsw input:checked~.tknob{transform:translateX(16px)}
+
+/* SEARCH BAR */
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.asr{padding:9px 14px;background:var(--s);border:1px solid var(--b);border-radius:10px;color:var(--tx);font-family:inherit;font-size:.82rem;outline:none;width:220px;transition:border-color .2s}
+.asr:focus{border-color:var(--ac)}
+
+/* ACTIVITY */
+.actf{display:flex;flex-direction:column;gap:12px}
+.ai2{display:flex;gap:10px;align-items:flex-start;font-size:.78rem}
+.aiico{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.aitxt{font-weight:500;margin-bottom:2px}
+.aitm{color:var(--mu);font-size:.7rem}
+
+/* DIST BARS */
+.dist{margin-bottom:11px}
+.distrow{display:flex;justify-content:space-between;font-size:.75rem;margin-bottom:4px}
+.distbar{height:5px;background:var(--s2);border-radius:999px}
+.distfill{height:100%;border-radius:999px}
+
+/* TOAST */
+#toast{position:fixed;bottom:28px;right:28px;z-index:9999;background:var(--s);border:1px solid var(--b);border-radius:10px;padding:12px 18px;font-size:.84rem;font-weight:600;box-shadow:0 12px 32px rgba(0,0,0,.4);transform:translateY(20px);opacity:0;transition:all .3s;pointer-events:none;max-width:280px}
+
+/* MODAL */
+#modal{display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);align-items:center;justify-content:center}
+.mbox{background:var(--s);border:1px solid var(--b);border-radius:18px;padding:26px;width:100%;max-width:360px;box-shadow:0 36px 72px rgba(0,0,0,.55)}
+.mhd{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.mhdt{font-family:'Syne',sans-serif;font-weight:700;font-size:.98rem}
+.mclose{background:none;border:none;color:var(--mu);font-size:1.1rem;cursor:pointer;line-height:1}
+.mclose:hover{color:var(--tx)}
+.pch{width:100%;padding:11px 14px;border-radius:10px;border:1px solid var(--b);background:var(--s2);color:var(--tx);font-family:inherit;font-size:.86rem;text-align:left;cursor:pointer;transition:all .18s;margin-bottom:7px;font-weight:500}
+.pch:hover{border-color:var(--b2)}
+.pch.pop2{border-color:rgba(0,200,240,.3);color:var(--ac);background:var(--ad)}
+.pch.eli2{border-color:rgba(245,200,66,.3);color:var(--go);background:var(--yd)}
+.pch.bus{border-color:rgba(0,232,150,.3);color:var(--gr);background:var(--gd)}
+
+@media(max-width:768px){
+  .aside{width:60px}
+  .ablogo,.absub,.ans,.aunm,.auem,.anb span{display:none}
+  .anb{justify-content:center;padding:10px}
+  .amain{margin-left:60px;width:calc(100% - 60px)}
+  .krow4{grid-template-columns:1fr 1fr}
+  .krow3{grid-template-columns:1fr}
+}
+
+
+</style>
+</head>
+<body>
+
+<aside class="aside">
+  <div class="abrand">
+    <div class="ablogo">CubaMarket</div>
+    <div class="absub">Admin Panel</div>
+  </div>
+  <nav class="anav">
+    <div class="ans">Principal</div>
+    <button class="anb " onclick="location.href='admin-dashboard.html'">📊 <span>Dashboard</span></button>
+    <button class="anb " onclick="location.href='admin-tiendas.html'">🏪 <span>Tiendas</span></button>
+    <button class="anb " onclick="location.href='admin-usuarios.html'">👥 <span>Usuarios</span></button>
+    <button class="anb on" onclick="location.href='admin-pedidos.html'">📦 <span>Pedidos</span></button>
+    <div class="ans">Monetización</div>
+    <button class="anb " onclick="location.href='admin-planes.html'">💎 <span>Planes</span></button>
+    <button class="anb " onclick="location.href='admin-afiliados.html'">🤝 <span>Afiliados</span></button>
+    <div class="ans">Sistema</div>
+    <button class="anb " onclick="location.href='admin-config.html'">⚙️ <span>Configuración</span></button>
+  </nav>
+  <div class="auser">
+    <div class="aurow">
+      <div class="aav">A</div>
+      <div><div class="aunm">Administrador</div><div class="auem">admin@cubamarket.com</div></div>
+    </div>
+    <button class="btn bd bbl bsm" onclick="adminLogout()">← Salir</button>
+  </div>
+</aside>
+
+<div class="amain">
+
+<div class="atop">
+  <div>
+    <div class="atop-t">Pedidos</div>
+    <div class="atop-s">CubaMarket · Panel de Control</div>
+  </div>
+  <div class="atop-r">
+    <div class="alive"><span class="dot-live"></span> Sistema activo</div>
+    <div class="aclk" id="aclock">--:--:--</div>
+    <a href="cubamarket.html" class="btn bh bsm" style="font-size:.72rem">🌐 Ver Sitio</a>
+  </div>
+</div>
+
+<div class="acont">
+
+<div class="ph2">
+  <div class="ph2-t">📦 Gestión de Pedidos</div>
+  <div class="ph2-s">Todos los pedidos de la plataforma en tiempo real</div>
+</div>
+
+<div class="krow krow4" style="margin-bottom:20px">
+  <div class="kc kb"><div class="kclbl">Pedidos del Mes</div><div class="kcval">1,247</div><div class="kctr">↑ +18.2% vs mes anterior</div></div>
+  <div class="kc kg"><div class="kclbl">Pagados</div><div class="kcval">892</div><div class="kctr">71.5% del total</div></div>
+  <div class="kc ky"><div class="kclbl">Pendientes</div><div class="kcval">198</div><div class="kctr">Esperan confirmación</div></div>
+  <div class="kc ko"><div class="kclbl">Cancelados</div><div class="kcval">157</div><div class="kctr">12.6% del total</div></div>
+</div>
+
+<div class="sh">
+  <div style="display:flex;gap:10px;flex-wrap:wrap">
+    <input class="asr" type="text" placeholder="🔍 Buscar pedido, cliente..." oninput="fTbl(this,'tped')" style="width:250px">
+    <select class="asr" style="width:auto" onchange="filterStatus(this.value)">
+      <option value="">Todos los estados</option>
+      <option value="Pagado">Pagado</option>
+      <option value="Enviado">Enviado</option>
+      <option value="Pendiente">Pendiente</option>
+      <option value="Cancelado">Cancelado</option>
+    </select>
+    <select class="asr" style="width:auto">
+      <option>Todas las monedas</option>
+      <option>USD</option><option>CUP</option><option>MLC</option><option>EUR</option>
+    </select>
+  </div>
+  <div style="display:flex;gap:8px">
+    <button class="btn bh bsm">📥 Exportar CSV</button>
+    <button class="btn bh bsm">🖨️ Imprimir</button>
+  </div>
+</div>
+
+<div class="tw">
+  <table class="at" id="tped">
+    <thead><tr><th>ID</th><th>Fecha</th><th>Cliente</th><th>Tienda</th><th>Producto(s)</th><th>Total</th><th>Moneda</th><th>Estado</th><th>Acción</th></tr></thead>
+    <tbody>
+      <tr><td style="font-weight:700">#5001</td><td style="color:var(--mu);font-size:.78rem">31 May 2025<br>09:14</td><td style="font-size:.82rem">Carlos Martínez<br><span style="color:var(--mu);font-size:.72rem">+53 5 111</span></td><td style="color:var(--mu)">TechCuba</td><td style="color:var(--mu);font-size:.8rem">iPhone 14 Pro 256GB</td><td style="color:var(--gr);font-weight:700">$850.00</td><td>USD</td><td><span class="badge bg ostatus">Pagado</span></td><td><div style="display:flex;gap:5px"><button class="btn bh bsm" onclick="viewOrder(this)">👁️</button><button class="btn bh bsm" onclick="toast('📦 Marcado como enviado')">🚚</button></div></td></tr>
+      <tr><td style="font-weight:700">#5000</td><td style="color:var(--mu);font-size:.78rem">30 May 2025<br>18:30</td><td style="font-size:.82rem">Ana Rodríguez<br><span style="color:var(--mu);font-size:.72rem">+53 5 222</span></td><td style="color:var(--mu)">Moda Havana</td><td style="color:var(--mu);font-size:.8rem">Conjunto Verano x2</td><td style="color:var(--gr);font-weight:700">3,200</td><td>CUP</td><td><span class="badge ba ostatus">Enviado</span></td><td><div style="display:flex;gap:5px"><button class="btn bh bsm" onclick="viewOrder(this)">👁️</button><button class="btn bh bsm" onclick="toast('✅ Estado actualizado')">✅</button></div></td></tr>
+      <tr><td style="font-weight:700">#4999</td><td style="color:var(--mu);font-size:.78rem">29 May 2025<br>12:00</td><td style="font-size:.82rem">Luis González<br><span style="color:var(--mu);font-size:.72rem">+53 5 333</span></td><td style="color:var(--mu)">Don Mario</td><td style="color:var(--mu);font-size:.8rem">Pizza Familiar x2</td><td style="color:var(--gr);font-weight:700">900</td><td>CUP</td><td><span class="badge by ostatus">Pendiente</span></td><td><div style="display:flex;gap:5px"><button class="btn bh bsm" onclick="viewOrder(this)">👁️</button><button class="btn bg2 bsm" onclick="toast('✅ Pedido confirmado')">✔️</button></div></td></tr>
+      <tr><td style="font-weight:700">#4998</td><td style="color:var(--mu);font-size:.78rem">28 May 2025<br>15:20</td><td style="font-size:.82rem">Marta López<br><span style="color:var(--mu);font-size:.72rem">+53 5 444</span></td><td style="color:var(--mu)">Academia Digital</td><td style="color:var(--mu);font-size:.8rem">Curso Diseño Gráfico Pro</td><td style="color:var(--gr);font-weight:700">$25.00</td><td>USD</td><td><span class="badge bg ostatus">Pagado</span></td><td><div style="display:flex;gap:5px"><button class="btn bh bsm" onclick="viewOrder(this)">👁️</button><button class="btn bh bsm" onclick="toast('📧 Enlace enviado al cliente')">📧</button></div></td></tr>
+      <tr><td style="font-weight:700">#4997</td><td style="color:var(--mu);font-size:.78rem">27 May 2025<br>08:45</td><td style="font-size:.82rem">Pedro Silva<br><span style="color:var(--mu);font-size:.72rem">+53 5 555</span></td><td style="color:var(--mu)">FerretCuba</td><td style="color:var(--mu);font-size:.8rem">Juego herramientas Pro</td><td style="color:var(--gr);font-weight:700">$210.00</td><td>USD</td><td><span class="badge br ostatus">Cancelado</span></td><td><div style="display:flex;gap:5px"><button class="btn bh bsm" onclick="viewOrder(this)">👁️</button><button class="btn bd bsm" onclick="toast('↩️ Reembolso procesado')">↩️</button></div></td></tr>
+    </tbody>
+  </table>
+</div>
+<div style="display:flex;align-items:center;justify-content:space-between;margin-top:14px;font-size:.8rem;color:var(--mu)">
+  <span>Mostrando 5 de 1,247 pedidos</span>
+  <div style="display:flex;gap:6px">
+    <button class="btn bh bsm">← Anterior</button>
+    <button class="btn bp bsm">1</button>
+    <button class="btn bh bsm">2</button>
+    <button class="btn bh bsm">3</button>
+    <button class="btn bh bsm">Siguiente →</button>
+  </div>
+</div>
+
+<!-- Modal ver pedido -->
+<div id="modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);align-items:center;justify-content:center">
+  <div class="mbox" style="max-width:480px">
+    <div class="mhd"><div class="mhdt" id="modal-order-id">📦 Pedido #5001</div><button class="mclose" onclick="closeModal()">✕</button></div>
+    <div style="display:flex;flex-direction:column;gap:10px;font-size:.84rem">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div style="background:var(--s2);border-radius:8px;padding:10px"><div style="color:var(--mu);font-size:.7rem;margin-bottom:3px">CLIENTE</div><div style="font-weight:600">Carlos Martínez</div></div>
+        <div style="background:var(--s2);border-radius:8px;padding:10px"><div style="color:var(--mu);font-size:.7rem;margin-bottom:3px">TIENDA</div><div style="font-weight:600">TechCuba Store</div></div>
+        <div style="background:var(--s2);border-radius:8px;padding:10px"><div style="color:var(--mu);font-size:.7rem;margin-bottom:3px">PRODUCTO</div><div style="font-weight:600">iPhone 14 Pro</div></div>
+        <div style="background:var(--s2);border-radius:8px;padding:10px"><div style="color:var(--mu);font-size:.7rem;margin-bottom:3px">TOTAL</div><div style="font-weight:700;color:var(--gr)">$850.00 USD</div></div>
+      </div>
+      <div style="background:var(--s2);border-radius:8px;padding:10px"><div style="color:var(--mu);font-size:.7rem;margin-bottom:5px">CAMBIAR ESTADO</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <button class="btn bg2 bsm" onclick="toast('✅ Marcado como Pagado');closeModal()">Pagado</button>
+          <button class="btn ba2 bsm" onclick="toast('🚚 Marcado como Enviado');closeModal()" style="background:var(--ad);border:1px solid rgba(0,200,240,.25);color:var(--ac)">Enviado</button>
+          <button class="btn bh bsm" onclick="toast('⏳ Marcado como Pendiente');closeModal()">Pendiente</button>
+          <button class="btn bd bsm" onclick="toast('❌ Marcado como Cancelado');closeModal()">Cancelado</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+<div id="toast"></div>
+<script>
+
+function clk(){
+  const n=new Date(),z=v=>String(v).padStart(2,'0');
+  const el=document.getElementById('aclock');
+  if(el) el.textContent=`${z(n.getHours())}:${z(n.getMinutes())}:${z(n.getSeconds())}`;
+}
+setInterval(clk,1000);clk();
+
+function toast(msg,type='ok'){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.style.borderColor = type==='err'?'rgba(255,61,87,.35)':'var(--b)';
+  t.style.opacity='1';t.style.transform='translateY(0)';
+  clearTimeout(window._tt);
+  window._tt=setTimeout(()=>{t.style.opacity='0';t.style.transform='translateY(20px)'},2800);
+}
+
+function fTbl(inp,id){
+  const q=inp.value.toLowerCase();
+  document.querySelectorAll('#'+id+' tbody tr').forEach(tr=>
+    tr.style.display=tr.textContent.toLowerCase().includes(q)?'':'none'
+  );
+}
+
+function openModal(id){document.getElementById(id||'modal').style.display='flex'}
+function closeModal(id){document.getElementById(id||'modal').style.display='none'}
+
+function adminLogout(){
+  sessionStorage.removeItem('cm_admin');
+  location.href='admin-login.html';
+}
+// Auth check
+if(!sessionStorage.getItem('cm_admin')){
+  location.href='admin-login.html';
+}
+
+function filterStatus(val){
+  document.querySelectorAll('#tped tbody tr').forEach(tr=>{
+    if(!val){tr.style.display='';return;}
+    tr.style.display=tr.querySelector('.ostatus')?.textContent.trim()===val?'':'none';
+  });
+}
+function viewOrder(btn){
+  openModal('modal');
+  const id = btn.closest('tr').cells[0].textContent;
+  document.getElementById('modal-order-id').textContent = '📦 Pedido '+id;
+}
+
+</script>
+</body>
+      </html>
