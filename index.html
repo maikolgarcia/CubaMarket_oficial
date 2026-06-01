@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CubaMarket — El Marketplace del Futuro Cubano</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#050C12;color:#DDE8EE;font-family:'DM Sans',sans-serif;overflow-x:hidden;line-height:1.5}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+button{cursor:pointer;font-family:inherit}
+:root{
+  --bg:#050C12;--bg2:#080F16;--s:#0C1A24;--s2:#112030;
+  --b:#1B3348;--b2:#24445C;
+  --ac:#00C8F0;--ad:rgba(0,200,240,.12);
+  --gr:#00E896;--gd:rgba(0,232,150,.12);
+  --go:#F5C842;--yd:rgba(245,200,66,.12);
+  --or:#FF6B35;--re:#FF3D57;
+  --tx:#DDE8EE;--mu:#6A8FA8;--m2:#3D6070;
+}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--b2);border-radius:3px}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:10px;font-size:.875rem;font-weight:600;border:none;transition:all .2s;white-space:nowrap;cursor:pointer;font-family:'DM Sans',sans-serif;line-height:1}
+.bp{background:linear-gradient(135deg,var(--ac),#0098BB);color:#000}
+.bp:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,200,240,.35)}
+.bh{background:transparent;border:1px solid var(--b2);color:var(--tx)}
+.bh:hover{border-color:var(--ac);color:var(--ac)}
+.bg2{background:linear-gradient(135deg,var(--gr),#00AA70);color:#000}
+.bg2:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,232,150,.3)}
+.by2{background:linear-gradient(135deg,var(--go),var(--or));color:#000}
+.by2:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(245,200,66,.3)}
+.bd{background:rgba(255,61,87,.1);border:1px solid rgba(255,61,87,.25);color:var(--re)}
+.bd:hover{background:rgba(255,61,87,.2)}
+.bsm{padding:6px 14px;font-size:.76rem}
+.blg{padding:14px 30px;font-size:1rem}
+.bbl{width:100%;justify-content:center}
+
+/* BADGE */
+.badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:999px;font-size:.68rem;font-weight:700;letter-spacing:.04em}
+.ba{background:var(--ad);border:1px solid rgba(0,200,240,.25);color:var(--ac)}
+.bg{background:var(--gd);border:1px solid rgba(0,232,150,.25);color:var(--gr)}
+.by{background:var(--yd);border:1px solid rgba(245,200,66,.25);color:var(--go)}
+.bo{background:rgba(255,107,53,.12);border:1px solid rgba(255,107,53,.25);color:var(--or)}
+.br{background:rgba(255,61,87,.12);border:1px solid rgba(255,61,87,.25);color:var(--re)}
+.bm{background:var(--s2);border:1px solid var(--b);color:var(--mu)}
+.dot-live{width:6px;height:6px;border-radius:50%;background:var(--gr);animation:pdot 1.8s infinite;display:inline-block}
+@keyframes pdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.7)}}
+
+/* LAYOUT */
+.sec{padding:88px 0}
+.sa{background:var(--bg2)}
+.ct{max-width:1200px;margin:0 auto;padding:0 5%}
+.sl{display:inline-flex;align-items:center;gap:8px;font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ac);margin-bottom:14px}
+.sl::before{content:'';width:18px;height:1.5px;background:var(--ac)}
+h1,h2,h3{font-family:'Syne',sans-serif;letter-spacing:-.02em;line-height:1.1}
+h2{font-size:clamp(1.7rem,3.5vw,2.6rem);font-weight:800;margin-bottom:14px}
+.ssub{color:var(--mu);font-size:1rem;line-height:1.7;max-width:560px;margin-bottom:48px}
+.card{background:var(--s);border:1px solid var(--b);border-radius:14px}
+.ch{transition:all .25s}
+.ch:hover{border-color:var(--b2);transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,.35)}
+
+/* TOPBAR */
+#topbar{background:rgba(0,200,240,.07);border-bottom:1px solid rgba(0,200,240,.12);padding:8px 5%;display:flex;align-items:center;justify-content:space-between;font-size:.75rem;color:var(--mu);gap:12px;flex-wrap:wrap}
+#topbar strong{color:var(--gr)}
+.cpills{display:flex;gap:6px}
+.cpill{padding:3px 10px;border-radius:999px;background:var(--s);border:1px solid var(--b);font-size:.68rem;font-weight:600;color:var(--mu);cursor:pointer;transition:all .18s}
+.cpill.on,.cpill:hover{background:var(--ad);border-color:rgba(0,200,240,.3);color:var(--ac)}
+
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;z-index:800;height:64px;display:flex;align-items:center;padding:0 5%;background:rgba(5,12,18,.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--b);transition:box-shadow .3s}
+#nav.sc{box-shadow:0 4px 24px rgba(0,0,0,.4)}
+.nlogo{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;background:linear-gradient(135deg,var(--ac),var(--gr));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nlogo-f{background:linear-gradient(135deg,var(--or),var(--go));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nlinks{display:flex;gap:28px;margin-left:40px}
+.nlinks a{font-size:.875rem;font-weight:500;color:var(--mu);transition:color .18s}
+.nlinks a:hover{color:var(--tx)}
+#hbg{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px;margin-left:12px;cursor:pointer}
+#hbg span{width:22px;height:2px;background:var(--tx);border-radius:1px}
+#mmenu{display:none;position:fixed;top:64px;left:0;right:0;z-index:799;background:var(--bg2);border-bottom:1px solid var(--b);padding:18px 5%;flex-direction:column;gap:10px}
+#mmenu a{font-size:.92rem;color:var(--mu);padding:8px 0;border-bottom:1px solid var(--b)}
+#mmenu a:hover{color:var(--ac)}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;padding-top:64px;position:relative;overflow:hidden}
+.hgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,200,240,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,200,240,.03) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 80% 55% at 50% 0%,black 30%,transparent 80%)}
+.horb1{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(0,200,240,.1),transparent 70%);top:-150px;right:-100px;pointer-events:none}
+.horb2{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,53,.07),transparent 70%);bottom:0;left:5%;pointer-events:none}
+.hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:80px 0}
+.hero-h1{font-size:clamp(2.6rem,5.5vw,4.4rem);font-weight:800;line-height:1.06;margin-bottom:22px}
+.grb{background:linear-gradient(135deg,var(--ac),var(--gr));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.grf{background:linear-gradient(135deg,var(--or),var(--go));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-desc{font-size:1.05rem;color:var(--mu);line-height:1.75;margin-bottom:32px}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:48px}
+.hero-stats{display:flex;gap:36px;flex-wrap:wrap}
+.hstat strong{font-family:'Syne',sans-serif;font-size:1.9rem;font-weight:800;color:var(--ac);display:block;line-height:1}
+.hstat span{font-size:.72rem;color:var(--mu)}
+.mwrap{background:var(--s);border:1px solid var(--b);border-radius:20px;padding:20px;box-shadow:0 32px 80px rgba(0,0,0,.55);animation:fh 7s ease-in-out infinite}
+@keyframes fh{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.mtbar{display:flex;gap:6px;margin-bottom:16px;align-items:center}
+.mdot{width:9px;height:9px;border-radius:50%}
+.murl{margin-left:auto;font-size:.62rem;color:var(--mu);background:var(--s2);padding:3px 10px;border-radius:999px;border:1px solid var(--b)}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.mc{background:var(--s2);border:1px solid var(--b);border-radius:10px;padding:12px}
+.mc-img{height:56px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:8px}
+.mc-name{font-size:.72rem;font-weight:600;margin-bottom:4px}
+.mc-price{font-size:.78rem;font-weight:700;color:var(--gr)}
+.mbar{background:var(--gd);border:1px solid rgba(0,232,150,.2);border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between;font-size:.74rem}
+.mbar span{color:var(--mu)}
+.mbar strong{color:var(--gr);font-family:'Syne',sans-serif;font-weight:800}
+
+/* FEATURES */
+.fg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.fc{padding:22px;transition:all .25s;position:relative;overflow:hidden}
+.fc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--ac),transparent);opacity:0;transition:opacity .3s}
+.fc:hover::before{opacity:1}
+.fc:hover{border-color:rgba(0,200,240,.3);transform:translateY(-3px);box-shadow:0 18px 44px rgba(0,0,0,.35)}
+.fc.wide{grid-column:span 2}
+.fic{font-size:1.9rem;margin-bottom:12px;display:block}
+.fc h3{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:6px}
+.fc p{font-size:.83rem;color:var(--mu);line-height:1.6}
+
+/* MARKETPLACE */
+.cats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.cpill2{display:flex;align-items:center;gap:6px;padding:7px 14px;background:var(--s);border:1px solid var(--b);border-radius:999px;font-size:.82rem;font-weight:500;color:var(--mu);cursor:pointer;transition:all .18s}
+.cpill2:hover,.cpill2.on{background:var(--ad);border-color:rgba(0,200,240,.3);color:var(--ac)}
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.pcard{border-radius:14px;overflow:hidden;transition:all .25s;cursor:pointer}
+.pcard:hover{transform:translateY(-4px);border-color:rgba(0,200,240,.25);box-shadow:0 16px 40px rgba(0,0,0,.35)}
+.pthumb{height:148px;display:flex;align-items:center;justify-content:center;font-size:2.8rem;background:var(--s2);position:relative}
+.pbadge{position:absolute;top:10px;left:10px;font-size:.62rem;font-weight:800;letter-spacing:.06em;padding:3px 8px;border-radius:6px}
+.bn{background:var(--gr);color:#000}
+.bht{background:var(--or);color:#fff}
+.bsl{background:var(--re);color:#fff}
+.pinfo{padding:14px}
+.pst{font-size:.66rem;color:var(--mu);margin-bottom:4px}
+.pnm{font-family:'Syne',sans-serif;font-size:.88rem;font-weight:700;margin-bottom:8px;line-height:1.3}
+.prow{display:flex;align-items:center;justify-content:space-between}
+.ppr{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:800;color:var(--gr)}
+.ppr sub{font-size:.62rem;color:var(--mu);font-family:'DM Sans',sans-serif}
+.bcart{width:30px;height:30px;border-radius:8px;background:var(--ad);border:1px solid rgba(0,200,240,.2);color:var(--ac);display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:all .18s;cursor:pointer}
+.bcart:hover{background:var(--ac);color:#000}
+
+/* HOW IT WORKS */
+.hgr{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.steps{display:flex;flex-direction:column}
+.step{display:flex;gap:20px;padding:20px 0 20px 28px;border-left:2px solid var(--b);position:relative;transition:border-color .3s}
+.step::before{content:'';position:absolute;left:-9px;top:24px;width:16px;height:16px;border-radius:50%;background:var(--s);border:2px solid var(--b);transition:all .3s}
+.step:hover{border-color:var(--ac)}
+.step:hover::before{background:var(--ac);border-color:var(--ac)}
+.sn{font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;color:var(--s2);line-height:1;min-width:36px}
+.stit{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:5px}
+.sdesc{font-size:.82rem;color:var(--mu);line-height:1.6}
+.pbox{background:var(--s);border:1px solid var(--b);border-radius:20px;padding:24px;box-shadow:0 32px 72px rgba(0,0,0,.45)}
+.ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--b)}
+.ph-t{font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem}
+.kr{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+.kpi{background:var(--s2);border-radius:10px;padding:12px;text-align:center}
+.kpi strong{font-family:'Syne',sans-serif;font-size:1.25rem;font-weight:800;color:var(--ac);display:block}
+.kpi span{font-size:.66rem;color:var(--mu)}
+.olist{display:flex;flex-direction:column;gap:7px}
+.oi{display:flex;align-items:center;justify-content:space-between;background:var(--s2);border-radius:8px;padding:8px 12px;font-size:.77rem;gap:8px}
+.oi-n{color:var(--mu);flex:1}
+.oi-a{font-weight:600}
+
+/* PRICING */
+.pglow{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(0,200,240,.055),transparent 70%);left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none}
+.ptog{display:inline-flex;background:var(--s);border:1px solid var(--b);border-radius:999px;padding:4px;gap:4px;margin-bottom:48px}
+.ptb{padding:6px 18px;border-radius:999px;border:none;background:transparent;color:var(--mu);font-size:.82rem;font-weight:600;font-family:inherit;transition:all .2s;cursor:pointer}
+.ptb.on{background:var(--ac);color:#000}
+.plans{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative;z-index:2}
+.plan{background:var(--s);border:1px solid var(--b);border-radius:20px;padding:26px;display:flex;flex-direction:column;transition:all .3s;position:relative}
+.plan:hover{transform:translateY(-4px);box-shadow:0 20px 52px rgba(0,0,0,.38)}
+.plan.pop{background:linear-gradient(145deg,rgba(0,200,240,.07),rgba(0,232,150,.04));border-color:rgba(0,200,240,.45);transform:scale(1.025)}
+.plan.pop:hover{transform:scale(1.025) translateY(-4px)}
+.plan.eli{background:linear-gradient(145deg,rgba(245,200,66,.06),rgba(255,107,53,.04));border-color:rgba(245,200,66,.35)}
+.ptop{position:absolute;top:-13px;left:50%;transform:translateX(-50%);padding:4px 14px;border-radius:999px;font-size:.63rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.tp{background:linear-gradient(135deg,var(--ac),var(--gr));color:#000}
+.te{background:linear-gradient(135deg,var(--go),var(--or));color:#000}
+.pnm2{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:5px}
+.ptag{font-size:.76rem;color:var(--mu);margin-bottom:20px;line-height:1.5}
+.ppw{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--b)}
+.pamt{font-family:'Syne',sans-serif;font-size:2.3rem;font-weight:800;line-height:1}
+.pamt sup{font-size:1.1rem;vertical-align:top;margin-top:4px}
+.pper{font-size:.74rem;color:var(--mu);margin-top:5px}
+.ptr{font-size:.7rem;color:var(--gr);font-weight:600;margin-top:5px}
+.pfl{display:flex;flex-direction:column;gap:9px;margin-bottom:24px;flex:1}
+.pfl li{display:flex;align-items:flex-start;gap:8px;font-size:.81rem;line-height:1.4}
+.ck{color:var(--gr);flex-shrink:0;font-size:.84rem;margin-top:1px}
+.xk{color:var(--b2);flex-shrink:0;font-size:.84rem;margin-top:1px}
+.pfl li.off{color:var(--mu)}
+
+/* AFFILIATE */
+.agr{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.rcards{display:flex;flex-direction:column;gap:12px;margin-top:24px}
+.rcard{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:18px;display:flex;gap:14px;transition:all .25s}
+.rcard:hover{border-color:var(--b2);transform:translateX(4px)}
+.ri{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.rcard h3{font-family:'Syne',sans-serif;font-size:.92rem;font-weight:700;margin-bottom:4px}
+.rcard p{font-size:.79rem;color:var(--mu);line-height:1.5}
+.rcomm{font-size:.7rem;color:var(--go);font-weight:600;margin-top:5px}
+.simbox{background:var(--s);border:1px solid var(--b);border-radius:20px;padding:28px;box-shadow:0 28px 64px rgba(0,0,0,.38)}
+.simtit{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:20px}
+.simg{margin-bottom:18px}
+.siml{display:flex;justify-content:space-between;font-size:.77rem;color:var(--mu);margin-bottom:8px}
+.siml strong{color:var(--tx);font-weight:600}
+input[type=range]{width:100%;height:4px;-webkit-appearance:none;background:var(--s2);border-radius:999px;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--ac);box-shadow:0 0 8px rgba(0,200,240,.5)}
+.simres{background:var(--s2);border-radius:12px;padding:16px;text-align:center;margin-top:18px}
+.simamt{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;background:linear-gradient(135deg,var(--go),var(--or));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.simnote{font-size:.7rem;color:var(--mu);margin-top:5px}
+
+/* TESTIMONIALS */
+.tgr{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tc{padding:22px;transition:all .25s}
+.tc:hover{border-color:rgba(0,200,240,.22);transform:translateY(-3px)}
+.stars{color:var(--go);font-size:.88rem;letter-spacing:2px;margin-bottom:12px}
+.ttxt{font-size:.875rem;color:var(--tx);line-height:1.7;font-style:italic;margin-bottom:16px}
+.tauth{display:flex;align-items:center;gap:10px}
+.tav{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.84rem;font-weight:700;color:#000;font-family:'Syne',sans-serif;flex-shrink:0}
+.tnm{font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700}
+.tst{font-size:.68rem;color:var(--mu)}
+
+/* FAQ */
+.fgr{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:900px;margin:0 auto}
+.fi{background:var(--s);border:1px solid var(--b);border-radius:12px;overflow:hidden;transition:border-color .2s}
+.fi.open{border-color:rgba(0,200,240,.3)}
+.fq{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:16px 18px;cursor:pointer;font-family:'Syne',sans-serif;font-size:.875rem;font-weight:700;user-select:none}
+.fa-arrow{color:var(--mu);transition:transform .25s;flex-shrink:0;font-style:normal;font-size:.9rem}
+.fi.open .fa-arrow{transform:rotate(180deg);color:var(--ac)}
+.fa{padding:0 18px;max-height:0;overflow:hidden;font-size:.81rem;color:var(--mu);line-height:1.65;transition:max-height .3s ease,padding .3s}
+.fi.open .fa{max-height:200px;padding:0 18px 16px}
+
+/* CTA */
+.ctasec{text-align:center;padding:110px 5%;position:relative;overflow:hidden}
+.ctag{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(0,200,240,.09),transparent 70%);left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none}
+.ctasec h2{position:relative;z-index:2;font-size:clamp(2rem,4.5vw,3.2rem)}
+.ctasec p{color:var(--mu);font-size:1rem;max-width:460px;margin:14px auto 32px;position:relative;z-index:2}
+.ctabtns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;z-index:2}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--b);padding:60px 5% 30px}
+.ftgr{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.fbrand p{font-size:.83rem;color:var(--mu);line-height:1.65;max-width:260px;margin:12px 0 18px}
+.socs{display:flex;gap:8px}
+.soc{width:36px;height:36px;border-radius:8px;background:var(--s);border:1px solid var(--b);display:flex;align-items:center;justify-content:center;font-size:.88rem;color:var(--mu);transition:all .18s}
+.soc:hover{border-color:var(--ac);color:var(--ac)}
+.fcol h4{font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
+.fcol ul{display:flex;flex-direction:column;gap:8px}
+.fcol ul li a{font-size:.83rem;color:var(--mu);transition:color .18s}
+.fcol ul li a:hover{color:var(--ac)}
+.fbot{display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid var(--b);font-size:.74rem;color:var(--mu);flex-wrap:wrap;gap:10px}
+.flogo{font-family:'Syne',sans-serif;font-weight:800;font-size:.86rem;background:linear-gradient(135deg,var(--ac),var(--gr));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+.wafl{position:fixed;bottom:28px;right:28px;z-index:700;width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 8px 24px rgba(37,211,102,.4);transition:all .25s}
+.wafl:hover{transform:scale(1.1)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease}
+.reveal.on{opacity:1;transform:none}
+
+/* ==============================
+   ADMIN
+============================== */
+#admin-login{display:none;position:fixed;inset:0;z-index:9000;background:var(--bg);align-items:center;justify-content:center;flex-direction:column}
+.albg{position:absolute;inset:0;background-image:linear-gradient(rgba(0,200,240,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,200,240,.025) 1px,transparent 1px);background-size:48px 48px}
+.alorb{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(0,200,240,.08),transparent 70%);top:-120px;left:50%;transform:translateX(-50%)}
+.albox{position:relative;z-index:2;background:var(--s);border:1px solid var(--b);border-radius:20px;padding:36px;width:100%;max-width:380px;box-shadow:0 40px 80px rgba(0,0,0,.55)}
+.allogo{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;text-align:center;margin-bottom:4px}
+.alsub{text-align:center;font-size:.74rem;color:var(--mu);letter-spacing:.12em;text-transform:uppercase;margin-bottom:28px}
+.allbl{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:6px}
+.alinput{width:100%;padding:11px 14px;background:var(--s2);border:1px solid var(--b);border-radius:10px;color:var(--tx);font-family:inherit;font-size:.92rem;outline:none;transition:border-color .2s;margin-bottom:14px}
+.alinput:focus{border-color:var(--ac)}
+.alerr{background:rgba(255,61,87,.1);border:1px solid rgba(255,61,87,.25);color:var(--re);padding:9px 14px;border-radius:8px;font-size:.79rem;margin-bottom:14px;display:none}
+.alhint{text-align:center;font-size:.7rem;color:var(--mu);margin-top:16px}
+.alhint code{background:var(--s2);color:var(--ac);padding:2px 7px;border-radius:4px;font-family:monospace}
+
+#admin-panel{display:none;position:fixed;inset:0;z-index:8999;background:var(--bg);flex-direction:row}
+
+/* Admin Sidebar */
+.aside{width:220px;flex-shrink:0;background:var(--bg2);border-right:1px solid var(--b);display:flex;flex-direction:column;height:100vh;overflow-y:auto}
+.abrand{padding:18px 16px;border-bottom:1px solid var(--b)}
+.ablogo{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;background:linear-gradient(135deg,var(--ac),var(--gr));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.absub{font-size:.62rem;color:var(--mu);letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
+.anav{flex:1;padding:12px 8px}
+.ans{font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--m2);padding:5px 8px;margin-bottom:3px;margin-top:12px}
+.ans:first-child{margin-top:0}
+.anb{width:100%;display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;border:none;background:transparent;color:var(--mu);cursor:pointer;font-family:inherit;font-size:.82rem;font-weight:500;text-align:left;transition:all .18s;margin-bottom:2px}
+.anb:hover{background:rgba(255,255,255,.04);color:var(--tx)}
+.anb.on{background:var(--ad);color:var(--ac);font-weight:600}
+.auser{padding:12px;border-top:1px solid var(--b)}
+.aurow{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.aav{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--ac),var(--gr));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.78rem;color:#000;font-family:'Syne',sans-serif;flex-shrink:0}
+.aunm{font-size:.8rem;font-weight:600}
+.auem{font-size:.66rem;color:var(--mu)}
+
+/* Admin Main */
+.amain{flex:1;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+.atop{padding:14px 22px;border-bottom:1px solid var(--b);display:flex;align-items:center;justify-content:space-between;background:var(--bg2);flex-shrink:0}
+.atop-t{font-family:'Syne',sans-serif;font-weight:700;font-size:.98rem}
+.atop-s{font-size:.7rem;color:var(--mu);margin-top:1px}
+.atop-r{display:flex;align-items:center;gap:12px}
+.alive{display:flex;align-items:center;gap:6px;font-size:.7rem;color:var(--gr);font-weight:600}
+.aclk{padding:5px 12px;background:var(--s);border:1px solid var(--b);border-radius:8px;font-size:.74rem;color:var(--mu);font-family:monospace}
+.acont{padding:22px;flex:1}
+
+/* Admin Sections */
+.asec{display:none}
+.asec.on{display:block}
+
+/* KPI Cards */
+.krow4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}
+.kc{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:18px;position:relative;overflow:hidden}
+.kc::after{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.kc.kb::after{background:linear-gradient(90deg,var(--ac),transparent)}
+.kc.kg::after{background:linear-gradient(90deg,var(--gr),transparent)}
+.kc.ky::after{background:linear-gradient(90deg,var(--go),transparent)}
+.kc.ko::after{background:linear-gradient(90deg,var(--or),transparent)}
+.kclbl{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--mu);margin-bottom:8px}
+.kcval{font-family:'Syne',sans-serif;font-size:1.75rem;font-weight:800;line-height:1}
+.kc.kb .kcval{color:var(--ac)}
+.kc.kg .kcval{color:var(--gr)}
+.kc.ky .kcval{color:var(--go)}
+.kc.ko .kcval{color:var(--or)}
+.kctr{font-size:.7rem;color:var(--gr);margin-top:5px}
+
+/* Dashboard grids */
+.dmid{display:grid;grid-template-columns:1.5fr 1fr;gap:14px;margin-bottom:16px}
+.dbot{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.ac2{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:18px}
+.act2{font-family:'Syne',sans-serif;font-weight:700;font-size:.88rem;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+
+/* Tables */
+.tw{background:var(--s);border:1px solid var(--b);border-radius:14px;overflow:hidden}
+.at{width:100%;border-collapse:collapse;font-size:.79rem}
+.at thead{background:var(--s2)}
+.at th{text-align:left;padding:11px 14px;border-bottom:1px solid var(--b);font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--mu)}
+.at td{padding:11px 14px;border-bottom:1px solid rgba(27,51,72,.45)}
+.at tbody tr{transition:background .12s}
+.at tbody tr:hover{background:rgba(0,200,240,.023)}
+.at tbody tr:last-child td{border-bottom:none}
+
+/* Section head */
+.sh2{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.sh2t{font-family:'Syne',sans-serif;font-weight:700;font-size:.98rem}
+.sh2s{font-size:.74rem;color:var(--mu);margin-top:2px}
+.asr{padding:8px 14px;background:var(--s);border:1px solid var(--b);border-radius:10px;color:var(--tx);font-family:inherit;font-size:.8rem;outline:none;width:200px;transition:border-color .2s}
+.asr:focus{border-color:var(--ac)}
+
+/* Plan edit */
+.pegr{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pecard{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:22px}
+.pecard.pop{border-color:rgba(0,200,240,.4)}
+.pecard.eli{border-color:rgba(245,200,66,.3)}
+.pehead{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.penm{font-family:'Syne',sans-serif;font-weight:700}
+.pef{margin-bottom:12px}
+.pelbl{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:5px}
+.pein{width:100%;padding:9px 12px;background:var(--s2);border:1px solid var(--b);border-radius:8px;color:var(--tx);font-family:inherit;font-size:.88rem;outline:none;transition:border-color .2s}
+.pein:focus{border-color:var(--ac)}
+
+/* Config */
+.cfgr{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cfcard{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:22px}
+.cftit{font-family:'Syne',sans-serif;font-weight:700;margin-bottom:18px}
+.trow{display:flex;align-items:center;justify-content:space-between;background:var(--s2);border-radius:8px;padding:10px 14px;margin-bottom:8px}
+.trow span{font-size:.83rem}
+.tsw{position:relative;width:36px;height:20px;flex-shrink:0;display:inline-block}
+.tsw input{opacity:0;width:0;height:0;position:absolute}
+.ttrack{position:absolute;inset:0;background:var(--b2);border-radius:999px;cursor:pointer;transition:background .2s}
+.tsw input:checked+.ttrack{background:var(--ac)}
+.tknob{position:absolute;width:14px;height:14px;border-radius:50%;background:#000;top:3px;left:3px;transition:transform .2s;pointer-events:none}
+.tsw input:checked~.tknob{transform:translateX(16px)}
+
+/* Activity */
+.actf{display:flex;flex-direction:column;gap:10px}
+.ai2{display:flex;gap:10px;align-items:flex-start;font-size:.77rem}
+.aiico{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.88rem;flex-shrink:0}
+.aitxt{font-weight:500}
+.aitm{color:var(--mu);font-size:.68rem}
+
+/* Quick actions */
+.qa{width:100%;padding:9px 14px;border-radius:8px;border:none;font-family:inherit;font-size:.8rem;font-weight:600;text-align:left;cursor:pointer;transition:all .18s;margin-bottom:7px}
+
+/* Dist bars */
+.dist{margin-bottom:10px}
+.distrow{display:flex;justify-content:space-between;font-size:.74rem;margin-bottom:4px}
+.distbar{height:5px;background:var(--s2);border-radius:999px}
+.distfill{height:100%;border-radius:999px}
+
+/* Modal */
+#adm-modal{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);align-items:center;justify-content:center}
+.mbox{background:var(--s);border:1px solid var(--b);border-radius:20px;padding:26px;width:100%;max-width:350px;box-shadow:0 36px 72px rgba(0,0,0,.55)}
+.mhd{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.mhdt{font-family:'Syne',sans-serif;font-weight:700;font-size:.98rem}
+.mclose{background:none;border:none;color:var(--mu);font-size:1.1rem;cursor:pointer}
+.mclose:hover{color:var(--tx)}
+.pch{width:100%;padding:11px 14px;border-radius:10px;border:1px solid var(--b);background:var(--s2);color:var(--tx);font-family:inherit;font-size:.86rem;text-align:left;cursor:pointer;transition:all .18s;margin-bottom:7px;font-weight:500}
+.pch:hover{border-color:var(--b2)}
+.pch.pop2{border-color:rgba(0,200,240,.3);color:var(--ac);background:var(--ad)}
+.pch.eli2{border-color:rgba(245,200,66,.3);color:var(--go);background:var(--yd)}
+
+/* Toast */
+#toast{position:fixed;bottom:88px;right:28px;z-index:10000;background:var(--s);border:1px solid var(--b);border-radius:10px;padding:12px 18px;font-size:.83rem;font-weight:600;box-shadow:0 12px 32px rgba(0,0,0,.4);transform:translateY(20px);opacity:0;transition:all .3s;pointer-events:none;max-width:260px}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .plans{grid-template-columns:1fr 1fr}
+  .plan.pop{transform:none}
+  .ftgr{grid-template-columns:1fr 1fr}
+}
+@media(max-width:900px){
+  .nlinks{display:none}
+  .hero-inner{grid-template-columns:1fr}
+  .mwrap{display:none}
+  .fg{grid-template-columns:1fr 1fr}
+  .fc.wide{grid-column:span 1}
+  .pgrid{grid-template-columns:1fr 1fr}
+  .hgr,.agr{grid-template-columns:1fr}
+  .tgr{grid-template-columns:1fr}
+  .fgr{grid-template-columns:1fr}
+  #hbg{display:flex}
+  .krow4{grid-template-columns:1fr 1fr}
+  .dmid,.dbot{grid-template-columns:1fr}
+  .pegr,.cfgr{grid-template-columns:1fr}
+  .aside{width:190px}
+}
+@media(max-width:640px){
+  .fg{grid-template-columns:1fr}
+  .pgrid{grid-template-columns:1fr 1fr}
+  .plans{grid-template-columns:1fr}
+  .ftgr{grid-template-columns:1fr}
+  .krow4{grid-template-columns:1fr 1fr}
+  .hero-h1{font-size:2.4rem}
+  section.sec{padding:70px 0}
+}
+</style>
+</head>
+<body>
+
+<!-- ========== MAIN SITE ========== -->
+<div id="main-site">
+
+<div id="topbar">
+  <span>💱 Vende en: <strong>CUP · USD · MLC · EUR</strong> — Tasas actualizadas automáticamente</span>
+  <div class="cpills">
+    <button class="cpill on" onclick="setCur(this)">CUP</button>
+    <button class="cpill" onclick="setCur(this)">USD</button>
+    <button class="cpill" onclick="setCur(this)">MLC</button>
+    <button class="cpill" onclick="setCur(this)">EUR</button>
+  </div>
+</div>
+
+<nav id="nav">
+  <a href="#" class="nlogo">Cuba<span class="nlogo-f">Market</span></a>
+  <div class="nlinks">
+    <a href="#features">Funciones</a>
+    <a href="#marketplace">Marketplace</a>
+    <a href="#pricing">Precios</a>
+    <a href="#affiliate">Ganar Dinero</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <div style="display:flex;gap:10px;margin-left:auto;align-items:center">
+    <a href="#" class="btn bh bsm">Acceder</a>
+    <a href="#pricing" class="btn bp bsm">Crear Tienda →</a>
+  </div>
+  <button id="hbg" onclick="toggleM()" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div id="mmenu">
+  <a href="#features" onclick="closeM()">Funciones</a>
+  <a href="#marketplace" onclick="closeM()">Marketplace</a>
+  <a href="#pricing" onclick="closeM()">Precios</a>
+  <a href="#affiliate" onclick="closeM()">Ganar Dinero</a>
+  <a href="#faq" onclick="closeM()">FAQ</a>
+  <a href="#pricing" class="btn bp" style="margin-top:6px" onclick="closeM()">Crear Tienda Gratis →</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hgrid"></div><div class="horb1"></div><div class="horb2"></div>
+  <div class="ct">
+    <div class="hero-inner">
+      <div>
+        <div class="badge ba" style="margin-bottom:18px"><span class="dot-live"></span> Plataforma #1 de eCommerce en Cuba</div>
+        <h1 class="hero-h1">Tu Negocio.<br><span class="grb">Sin Límites.</span><br><span class="grf">Sin Fronteras.</span></h1>
+        <p class="hero-desc">CubaMarket es el marketplace cubano de nueva generación. Crea tu tienda en minutos, vende físicos, digitales y servicios, y llega a toda Cuba y el mundo.</p>
+        <div class="hero-cta">
+          <a href="#pricing" class="btn bp blg">🚀 Crear Tienda Gratis</a>
+          <a href="#marketplace" class="btn bh blg">🛍️ Ver Marketplace</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hstat"><strong>+5,000</strong><span>Negocios activos</span></div>
+          <div class="hstat"><strong>+120K</strong><span>Compradores/mes</span></div>
+          <div class="hstat"><strong>14</strong><span>Días gratis</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="mwrap">
+          <div class="mtbar"><div class="mdot" style="background:#FF5F57"></div><div class="mdot" style="background:#FFBD2E"></div><div class="mdot" style="background:#28CA41"></div><div class="murl">tutienda.cubamarket.com</div></div>
+          <div class="mgrid">
+            <div class="mc"><div class="mc-img" style="background:var(--ad)">📱</div><div class="mc-name">iPhone 14 Pro</div><div class="mc-price">$850 USD</div></div>
+            <div class="mc"><div class="mc-img" style="background:var(--gd)">👗</div><div class="mc-name">Vestido Verano</div><div class="mc-price">2,500 CUP</div></div>
+            <div class="mc"><div class="mc-img" style="background:rgba(255,107,53,.1)">🍕</div><div class="mc-name">Pizza Especial</div><div class="mc-price">450 CUP</div></div>
+            <div class="mc"><div class="mc-img" style="background:var(--yd)">📚</div><div class="mc-name">Curso Online</div><div class="mc-price">$15 USD</div></div>
+          </div>
+          <div class="mbar"><span>Ventas hoy</span><strong>+$1,240 USD</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="sec sa">
+  <div class="ct">
+    <div class="reveal" style="text-align:center">
+      <div class="sl" style="justify-content:center">Todo lo que necesitas</div>
+      <h2>Más potente que cualquier<br>plataforma cubana</h2>
+      <p class="ssub" style="margin:0 auto 48px">No solo superamos a la competencia — redefinimos lo que una plataforma cubana puede hacer.</p>
+    </div>
+    <div class="fg reveal">
+      <div class="card fc wide"><span class="fic">🏪</span><h3>Tienda Online Completa con IA</h3><p>Tu tienda personalizable con colores, logo y dominio propio. El asistente IA optimiza listados, sugiere precios y mejora descripciones automáticamente.</p><div style="margin-top:12px"><span class="badge by">⚡ Exclusivo CubaMarket</span></div></div>
+      <div class="card fc"><span class="fic">💰</span><h3>Multi-Moneda Avanzada</h3><p>Vende en CUP, USD, MLC y EUR. Tasas actualizadas automáticamente cada hora.</p><div style="margin-top:10px"><span class="badge bg">Automático</span></div></div>
+      <div class="card fc"><span class="fic">📦</span><h3>Gestión de Inventario</h3><p>Control de stock con alertas automáticas, variantes (talla, color) y gestión por lotes.</p></div>
+      <div class="card fc"><span class="fic">🚚</span><h3>Logística Inteligente</h3><p>Zonas de entrega, precios por región y seguimiento en tiempo real.</p><div style="margin-top:10px"><span class="badge bo">🔥 Nuevo</span></div></div>
+      <div class="card fc"><span class="fic">🎓</span><h3>Productos Digitales</h3><p>Vende eBooks, cursos, música, plantillas y descargables automáticamente.</p></div>
+      <div class="card fc"><span class="fic">📊</span><h3>Analytics Avanzado</h3><p>Ventas, tráfico, productos más vendidos y embudo de conversión completo.</p><div style="margin-top:10px"><span class="badge by">Pro+</span></div></div>
+      <div class="card fc"><span class="fic">🤝</span><h3>Sistema de Gestores</h3><p>Activa comisiones y deja que agentes externos vendan tus productos. Paga solo por resultados.</p></div>
+      <div class="card fc"><span class="fic">🔔</span><h3>Notificaciones WhatsApp</h3><p>Clientes y vendedores reciben avisos de pedidos, pagos y envíos por WhatsApp.</p><div style="margin-top:10px"><span class="badge bo">Popular</span></div></div>
+      <div class="card fc"><span class="fic">📱</span><h3>App Móvil para Vendedores</h3><p>Gestiona pedidos, inventario y clientes desde tu teléfono. Android e iOS.</p><div style="margin-top:10px"><span class="badge by">⚡ Exclusivo</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKETPLACE -->
+<section id="marketplace" class="sec">
+  <div class="ct">
+    <div class="reveal"><div class="sl">Marketplace</div><h2>Encuentra todo lo que buscas</h2><p class="ssub">Miles de productos de vendedores verificados en toda Cuba.</p></div>
+    <div class="cats reveal">
+      <button class="cpill2 on" onclick="setCat(this)">🛍️ Todo</button>
+      <button class="cpill2" onclick="setCat(this)">📱 Tecnología</button>
+      <button class="cpill2" onclick="setCat(this)">👗 Moda</button>
+      <button class="cpill2" onclick="setCat(this)">🍽️ Comida</button>
+      <button class="cpill2" onclick="setCat(this)">🏠 Hogar</button>
+      <button class="cpill2" onclick="setCat(this)">💄 Belleza</button>
+      <button class="cpill2" onclick="setCat(this)">⚽ Deportes</button>
+      <button class="cpill2" onclick="setCat(this)">🎓 Cursos</button>
+      <button class="cpill2" onclick="setCat(this)">🔧 Ferreterías</button>
+    </div>
+    <div class="pgrid reveal">
+      <div class="card pcard"><div class="pthumb" style="background:rgba(0,200,240,.07)">📱<span class="pbadge bn">NUEVO</span></div><div class="pinfo"><div class="pst">🏪 TechCuba La Habana <span style="color:var(--gr)">✓</span></div><div class="pnm">iPhone 14 Pro 256GB</div><div class="prow"><div class="ppr">850<sub> USD</sub></div><button class="bcart">🛒</button></div></div></div>
+      <div class="card pcard"><div class="pthumb" style="background:rgba(0,232,150,.07)">👗<span class="pbadge bsl">-20%</span></div><div class="pinfo"><div class="pst">🏪 Moda Havana Style <span style="color:var(--gr)">✓</span></div><div class="pnm">Conjunto Verano Tropical</div><div class="prow"><div class="ppr">3,200<sub> CUP</sub></div><button class="bcart">🛒</button></div></div></div>
+      <div class="card pcard"><div class="pthumb" style="background:rgba(255,107,53,.07)">🍕<span class="pbadge bht">HOT</span></div><div class="pinfo"><div class="pst">🏪 Pizzería Don Mario <span style="color:var(--gr)">✓</span></div><div class="pnm">Pizza Familiar 4 Sabores</div><div class="prow"><div class="ppr">650<sub> CUP</sub></div><button class="bcart">🛒</button></div></div></div>
+      <div class="card pcard"><div class="pthumb" style="background:rgba(245,200,66,.07)">📚<span class="pbadge bn">DIGITAL</span></div><div class="pinfo"><div class="pst">🏪 Academia Digital Cuba <span style="color:var(--gr)">✓</span></div><div class="pnm">Curso Diseño Gráfico Pro</div><div class="prow"><div class="ppr">25<sub> USD</sub></div><button class="bcart">🛒</button></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" class="sec sa">
+  <div class="ct">
+    <div class="hgr">
+      <div class="reveal">
+        <div class="sl">Proceso Simple</div>
+        <h2>De cero a vender<br>en 10 minutos</h2>
+        <p class="ssub" style="margin-bottom:28px">Sin conocimientos técnicos. Nosotros hacemos la parte difícil.</p>
+        <div class="steps">
+          <div class="step"><div class="sn">01</div><div><div class="stit">Crea tu cuenta gratis</div><div class="sdesc">Regístrate con email o WhatsApp. 14 días de prueba sin tarjeta.</div></div></div>
+          <div class="step"><div class="sn">02</div><div><div class="stit">Personaliza tu tienda</div><div class="sdesc">Nombre, colores, logo y plantilla. Editor visual, sin código.</div></div></div>
+          <div class="step"><div class="sn">03</div><div><div class="stit">Agrega tus productos</div><div class="sdesc">Sube fotos, precios y variantes. La IA escribe las descripciones.</div></div></div>
+          <div class="step"><div class="sn">04</div><div><div class="stit">¡Comienza a vender!</div><div class="sdesc">Comparte tu link, aparece en el marketplace y recibe pedidos.</div></div></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="pbox">
+          <div class="ph"><span class="ph-t">📊 Dashboard de Tu Tienda</span><div class="alive"><span class="dot-live"></span> EN VIVO</div></div>
+          <div class="kr"><div class="kpi"><strong>$2,840</strong><span>Ventas hoy</span></div><div class="kpi"><strong>47</strong><span>Pedidos</span></div><div class="kpi"><strong>312</strong><span>Visitas</span></div></div>
+          <div style="font-size:.66rem;color:var(--mu);font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Pedidos Recientes</div>
+          <div class="olist">
+            <div class="oi"><span class="oi-n">#4821 · iPhone 14</span><span class="oi-a">$850</span><span class="badge bg">Pagado</span></div>
+            <div class="oi"><span class="oi-n">#4820 · Vestido</span><span class="oi-a">3,200 CUP</span><span class="badge ba">Enviado</span></div>
+            <div class="oi"><span class="oi-n">#4819 · Pizza x2</span><span class="oi-a">900 CUP</span><span class="badge by">Pendiente</span></div>
+            <div class="oi"><span class="oi-n">#4818 · Curso Pro</span><span class="oi-a">$25</span><span class="badge bg">Pagado</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="sec" style="position:relative;overflow:hidden">
+  <div class="pglow"></div>
+  <div class="ct">
+    <div class="reveal" style="text-align:center">
+      <div class="sl" style="justify-content:center">Planes y Membresías</div>
+      <h2>Elige el plan perfecto<br>para tu negocio</h2>
+      <p class="ssub" style="margin:0 auto 28px">14 días gratis en todos los planes. Sin tarjeta de crédito.</p>
+      <div class="ptog">
+        <button class="ptb on" id="togM" onclick="setTog('m')">Mensual</button>
+        <button class="ptb" id="togY" onclick="setTog('y')">Anual <span class="badge bg" style="margin-left:4px;font-size:.6rem">-30%</span></button>
+      </div>
+    </div>
+    <div class="plans reveal">
+      <div class="plan">
+        <div class="pnm2">🌱 Básico</div><div class="ptag">Para empezar tu negocio online</div>
+        <div class="ppw"><div class="pamt"><sup>$</sup><span class="pv" data-m="5" data-y="3">5</span></div><div class="pper">USD/mes · ~<span class="pc" data-m="350" data-y="210">350</span> CUP</div><div class="ptr">✅ 14 días gratis sin tarjeta</div></div>
+        <ul class="pfl">
+          <li><span class="ck">✓</span> Hasta <strong>50 productos</strong></li>
+          <li><span class="ck">✓</span> Subdominio CubaMarket</li>
+          <li><span class="ck">✓</span> Multi-moneda (CUP + USD)</li>
+          <li><span class="ck">✓</span> Notificaciones WhatsApp</li>
+          <li><span class="ck">✓</span> Gestión de pedidos</li>
+          <li><span class="ck">✓</span> Soporte por chat</li>
+          <li class="off"><span class="xk">✗</span> Dominio propio</li>
+          <li class="off"><span class="xk">✗</span> App móvil</li>
+          <li class="off"><span class="xk">✗</span> Asistente IA</li>
+        </ul>
+        <a href="#" class="btn bh bbl">Comenzar Gratis →</a>
+      </div>
+      <div class="plan pop">
+        <div class="ptop tp">⭐ MÁS POPULAR</div>
+        <div class="pnm2">🚀 Pro</div><div class="ptag">Para negocios en crecimiento activo</div>
+        <div class="ppw"><div class="pamt"><sup>$</sup><span class="pv" data-m="15" data-y="10">15</span></div><div class="pper">USD/mes · ~<span class="pc" data-m="1050" data-y="700">1,050</span> CUP</div><div class="ptr">✅ 14 días gratis sin tarjeta</div></div>
+        <ul class="pfl">
+          <li><span class="ck">✓</span> Hasta <strong>500 productos</strong></li>
+          <li><span class="ck">✓</span> <strong>Dominio propio</strong> incluido</li>
+          <li><span class="ck">✓</span> Multi-moneda completa (4)</li>
+          <li><span class="ck">✓</span> Sistema de Gestores</li>
+          <li><span class="ck">✓</span> Analytics completo</li>
+          <li><span class="ck">✓</span> <strong>App móvil</strong> vendedor</li>
+          <li><span class="ck">✓</span> Productos digitales</li>
+          <li><span class="ck">✓</span> Variantes avanzadas</li>
+          <li><span class="ck">✓</span> Soporte prioritario 24/7</li>
+        </ul>
+        <a href="#" class="btn bp bbl">Comenzar Gratis →</a>
+      </div>
+      <div class="plan">
+        <div class="pnm2">💼 Business</div><div class="ptag">Para empresas y marketplaces propios</div>
+        <div class="ppw"><div class="pamt"><sup>$</sup><span class="pv" data-m="35" data-y="24">35</span></div><div class="pper">USD/mes · ~<span class="pc" data-m="2450" data-y="1680">2,450</span> CUP</div><div class="ptr">✅ 14 días gratis sin tarjeta</div></div>
+        <ul class="pfl">
+          <li><span class="ck">✓</span> <strong>Productos ilimitados</strong></li>
+          <li><span class="ck">✓</span> Dominio propio + SSL</li>
+          <li><span class="ck">✓</span> <strong>Asistente IA</strong></li>
+          <li><span class="ck">✓</span> Multi-sucursal</li>
+          <li><span class="ck">✓</span> API de integración</li>
+          <li><span class="ck">✓</span> Facturación automática</li>
+          <li><span class="ck">✓</span> Sistema afiliados propio</li>
+          <li><span class="ck">✓</span> Dashboard multi-admin</li>
+          <li><span class="ck">✓</span> Soporte dedicado</li>
+        </ul>
+        <a href="#" class="btn bg2 bbl">Comenzar Gratis →</a>
+      </div>
+      <div class="plan eli">
+        <div class="ptop te">👑 ÉLITE</div>
+        <div class="pnm2">🌟 Enterprise</div><div class="ptag">Solución total para marcas y cadenas</div>
+        <div class="ppw"><div class="pamt"><sup>$</sup><span class="pv" data-m="80" data-y="56">80</span></div><div class="pper">USD/mes · ~<span class="pc" data-m="5600" data-y="3920">5,600</span> CUP</div><div class="ptr">✅ 14 días gratis · Migración gratis</div></div>
+        <ul class="pfl">
+          <li><span class="ck">✓</span> <strong>Todo de Business</strong></li>
+          <li><span class="ck">✓</span> Marca blanca completa</li>
+          <li><span class="ck">✓</span> Servidores dedicados</li>
+          <li><span class="ck">✓</span> <strong>IA personalizada</strong></li>
+          <li><span class="ck">✓</span> Integración ERP/CRM</li>
+          <li><span class="ck">✓</span> SLA 99.9% garantizado</li>
+          <li><span class="ck">✓</span> Gestor de cuenta personal</li>
+          <li><span class="ck">✓</span> Capacitación del equipo</li>
+          <li><span class="ck">✓</span> Soporte 24/7 directo</li>
+        </ul>
+        <a href="#" class="btn by2 bbl">Contactar Ventas →</a>
+      </div>
+    </div>
+    <p class="reveal" style="text-align:center;color:var(--mu);font-size:.82rem;margin-top:24px">
+      💳 Pago en CUP, USD, MLC &nbsp;·&nbsp; 🔒 Sin contrato &nbsp;·&nbsp; ↩️ Cancela cuando quieras
+    </p>
+  </div>
+</section>
+
+<!-- AFFILIATE -->
+<section id="affiliate" class="sec sa">
+  <div class="ct">
+    <div class="agr">
+      <div class="reveal">
+        <div class="sl">Gana Dinero</div>
+        <h2>Conviértete en parte<br>del ecosistema</h2>
+        <p class="ssub" style="margin-bottom:16px">Tres formas de ganar con CubaMarket, además de vender.</p>
+        <div class="rcards">
+          <div class="rcard"><div class="ri" style="background:var(--gd)">📣</div><div><h3>Afiliado</h3><p>Recomienda CubaMarket y gana por cada nuevo vendedor que se suscriba.</p><div class="rcomm">💰 40% comisión en primer pago</div></div></div>
+          <div class="rcard"><div class="ri" style="background:var(--ad)">🤝</div><div><h3>Gestor de Ventas</h3><p>Vende productos de tiendas afiliadas y cobra por cada venta. Sin stock.</p><div class="rcomm">💰 10–20% por venta cerrada</div></div></div>
+          <div class="rcard"><div class="ri" style="background:var(--yd)">⭐</div><div><h3>Partner Estratégico</h3><p>Integra CubaMarket en tu agencia. Revende con tu marca y precios.</p><div class="rcomm">💰 Hasta 50% comisión recurrente mensual</div></div></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="simbox">
+          <div class="simtit">🧮 Simulador de Ganancias</div>
+          <div class="simg"><div class="siml"><span>Vendedores referidos</span><strong id="sref">10</strong></div><input type="range" min="1" max="100" value="10" id="sr" oninput="calcSim()"></div>
+          <div class="simg"><div class="siml"><span>Plan promedio</span><strong id="splan">Pro ($15/mes)</strong></div><input type="range" min="1" max="4" value="2" id="sp" oninput="calcSim()"></div>
+          <div class="simres"><div class="simamt" id="sout">$60 USD</div><div class="simnote">Ganancia estimada en comisiones de primer pago</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonios" class="sec">
+  <div class="ct">
+    <div class="reveal" style="text-align:center">
+      <div class="sl" style="justify-content:center">Lo que dicen</div>
+      <h2>Negocios que ya confían<br>en CubaMarket</h2>
+      <p class="ssub" style="margin:0 auto 48px">Cientos de emprendedores cubanos ya están vendiendo más.</p>
+    </div>
+    <div class="tgr reveal">
+      <div class="card tc"><div class="stars">★★★★★</div><p class="ttxt">"Migré de otra plataforma y la diferencia es abismal. El analytics me ayudó a entender qué vende. En 3 meses mis ventas subieron 180%."</p><div class="tauth"><div class="tav" style="background:linear-gradient(135deg,var(--ac),var(--gr))">RC</div><div><div class="tnm">Roberto Castillo</div><div class="tst">🏪 TechCuba Store · La Habana</div></div><span class="badge ba" style="margin-left:auto">Pro</span></div></div>
+      <div class="card tc"><div class="stars">★★★★★</div><p class="ttxt">"La función multi-moneda es perfecta. Clientes en Cuba pagan en CUP y los del exterior en USD. Todo automatizado."</p><div class="tauth"><div class="tav" style="background:linear-gradient(135deg,var(--or),var(--go))">ML</div><div><div class="tnm">María Luisa Pérez</div><div class="tst">🏪 Moda Cubana Premium · Santiago</div></div><span class="badge bg" style="margin-left:auto">Business</span></div></div>
+      <div class="card tc"><div class="stars">★★★★★</div><p class="ttxt">"Como gestor genero más de $300 USD al mes sin tener tienda propia. Solo promociono por WhatsApp e Instagram."</p><div class="tauth"><div class="tav" style="background:linear-gradient(135deg,var(--go),var(--or))">JM</div><div><div class="tnm">Jorge Morejón</div><div class="tst">💼 Gestor de Ventas · Holguín</div></div><span class="badge by" style="margin-left:auto">Gestor</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="sec sa">
+  <div class="ct">
+    <div class="reveal" style="text-align:center;margin-bottom:48px"><div class="sl" style="justify-content:center">Preguntas Frecuentes</div><h2>Todo lo que quieres saber</h2></div>
+    <div class="fgr reveal">
+      <div class="fi open"><div class="fq" onclick="tFaq(this)">¿Cuánto cuesta crear mi tienda?<i class="fa-arrow">▾</i></div><div class="fa">14 días gratis en cualquier plan, sin tarjeta. Los planes van desde $5 USD/mes. Paga en CUP, USD o MLC.</div></div>
+      <div class="fi"><div class="fq" onclick="tFaq(this)">¿Puedo vender comida a domicilio?<i class="fa-arrow">▾</i></div><div class="fa">Sí. CubaMarket tiene modo restaurante con pedidos a domicilio, zonas de entrega, menú con fotos y horarios.</div></div>
+      <div class="fi"><div class="fq" onclick="tFaq(this)">¿Cómo funcionan los gestores?<i class="fa-arrow">▾</i></div><div class="fa">Tú defines el % de comisión. Los gestores reciben un link especial y cuando cierran una venta, la comisión se acredita automáticamente.</div></div>
+      <div class="fi"><div class="fq" onclick="tFaq(this)">¿Qué formas de pago aceptan?<i class="fa-arrow">▾</i></div><div class="fa">Transferencia, Tropipay, criptomonedas, efectivo contra entrega. Próximamente tarjeta magnética.</div></div>
+      <div class="fi"><div class="fq" onclick="tFaq(this)">¿Puedo tener mi propio dominio?<i class="fa-arrow">▾</i></div><div class="fa">Desde el plan Pro conectas tu dominio propio. En Básico usas tutienda.cubamarket.com. SSL incluido gratis.</div></div>
+      <div class="fi"><div class="fq" onclick="tFaq(this)">¿CubaMarket es mejor que BizneCubano?<i class="fa-arrow">▾</i></div><div class="fa">CubaMarket incluye IA, app móvil, analytics avanzado, modo restaurante y 14 días de prueba. Al mismo precio o menos.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="ctasec">
+  <div class="ctag"></div>
+  <div class="sl" style="justify-content:center">Empieza Hoy</div>
+  <h2>Tu tienda online<br><span class="grb">te está esperando</span></h2>
+  <p>Únete a miles de emprendedores cubanos. 14 días gratis, sin tarjeta de crédito.</p>
+  <div class="ctabtns">
+    <a href="#pricing" class="btn bp blg">🚀 Crear Mi Tienda Gratis</a>
+    <a href="#" class="btn bh blg">💬 Hablar con Ventas</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ct">
+    <div class="ftgr">
+      <div class="fbrand">
+        <a href="#" class="nlogo" style="display:inline-block;margin-bottom:4px">Cuba<span class="nlogo-f">Market</span></a>
+        <p>La plataforma de eCommerce cubana de nueva generación. Tecnología de clase mundial para cada emprendedor.</p>
+        <div class="socs"><a href="#" class="soc">f</a><a href="#" class="soc">📸</a><a href="#" class="soc">💬</a><a href="#" class="soc">✈️</a></div>
+      </div>
+      <div class="fcol"><h4>Plataforma</h4><ul><li><a href="#">Funciones</a></li><li><a href="#">Precios</a></li><li><a href="#">Marketplace</a></li><li><a href="#">App Móvil</a></li><li><a href="#">API</a></li></ul></div>
+      <div class="fcol"><h4>Ganar Dinero</h4><ul><li><a href="#">Afiliados</a></li><li><a href="#">Gestores</a></li><li><a href="#">Partners</a></li><li><a href="#">Simulador</a></li></ul></div>
+      <div class="fcol"><h4>Compañía</h4><ul><li><a href="#">Nosotros</a></li><li><a href="#">Blog</a></li><li><a href="#">Soporte</a></li><li><a href="#">Privacidad</a></li><li><a href="#">Términos</a></li></ul></div>
+    </div>
+    <div class="fbot">
+      <span>© 2025 <span class="flogo">CubaMarket</span> — Empoderando el eCommerce Cubano</span>
+      <span>Hecho con ❤️ para emprendedores cubanos &nbsp;·&nbsp; <a href="admin-login.html" style="color:var(--m2);font-size:.7rem;transition:color .2s" onmouseover="this.style.color='var(--ac)'" onmouseout="this.style.color='var(--m2)'">⚙️ Admin</a></span>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/1234567890" class="wafl" title="WhatsApp">💬</a>
+</div><!-- /main-site -->
+
+<!-- ========== ADMIN LOGIN ========== -->
+<div id="admin-login">
+  <div class="albg"></div>
+  <div class="alorb"></div>
+  <div class="albox">
+    <div class="allogo"><span class="grb">Cuba</span><span class="grf">Market</span></div>
+    <div class="alsub">Panel de Administración</div>
+    <label class="allbl">Usuario</label>
+    <input id="al-u" type="text" class="alinput" placeholder="admin" autocomplete="username">
+    <label class="allbl">Contraseña</label>
+    <input id="al-p" type="password" class="alinput" placeholder="••••••••" autocomplete="current-password">
+    <div id="al-err" class="alerr">⚠️ Usuario o contraseña incorrectos.</div>
+    <button class="btn bp bbl blg" onclick="adminLogin()">Entrar al Panel →</button>
+    <div class="alhint">Demo: usuario <code>admin</code> · contraseña <code>cubamarket2025</code></div>
+  </div>
+</div>
+
+<!-- ========== ADMIN PANEL ========== -->
+<div id="admin-panel">
+  <aside class="aside">
+    <div class="abrand"><div class="ablogo">CubaMarket</div><div class="absub">Admin Panel</div></div>
+    <nav class="anav">
+      <div class="ans">Principal</div>
+      <button class="anb on" data-s="dashboard" onclick="aN(this)">📊 Dashboard</button>
+      <button class="anb" data-s="tiendas" onclick="aN(this)">🏪 Tiendas</button>
+      <button class="anb" data-s="usuarios" onclick="aN(this)">👥 Usuarios</button>
+      <button class="anb" data-s="pedidos" onclick="aN(this)">📦 Pedidos</button>
+      <div class="ans">Monetización</div>
+      <button class="anb" data-s="planes" onclick="aN(this)">💎 Planes</button>
+      <button class="anb" data-s="afiliados" onclick="aN(this)">🤝 Afiliados</button>
+      <div class="ans">Sistema</div>
+      <button class="anb" data-s="config" onclick="aN(this)">⚙️ Configuración</button>
+    </nav>
+    <div class="auser">
+      <div class="aurow"><div class="aav">A</div><div><div class="aunm">Administrador</div><div class="auem">admin@cubamarket.com</div></div></div>
+      <button class="btn bd bbl bsm" onclick="adminLogout()">← Cerrar Sesión</button>
+    </div>
+  </aside>
+
+  <main class="amain">
+    <div class="atop">
+      <div><div class="atop-t" id="adm-title">Dashboard</div><div class="atop-s">CubaMarket · Panel de Control</div></div>
+      <div class="atop-r">
+        <div class="alive"><span class="dot-live"></span> Sistema activo</div>
+        <div class="aclk" id="aclock">--:--:--</div>
+      </div>
+    </div>
+    <div class="acont">
+
+      <!-- DASHBOARD -->
+      <div id="s-dashboard" class="asec on">
+        <div class="krow4">
+          <div class="kc kb"><div class="kclbl">Ingresos del Mes</div><div class="kcval">$14,820</div><div class="kctr">↑ +23.5% vs mes anterior</div></div>
+          <div class="kc kg"><div class="kclbl">Pedidos Totales</div><div class="kcval">1,247</div><div class="kctr">↑ +18.2% vs mes anterior</div></div>
+          <div class="kc ky"><div class="kclbl">Usuarios Activos</div><div class="kcval">5,312</div><div class="kctr">↑ +12.1% vs mes anterior</div></div>
+          <div class="kc ko"><div class="kclbl">Tiendas Activas</div><div class="kcval">423</div><div class="kctr">↑ +8 nuevas esta semana</div></div>
+        </div>
+        <div class="dmid">
+          <div class="ac2">
+            <div class="act2">Pedidos Recientes <div class="alive"><span class="dot-live"></span>EN VIVO</div></div>
+            <table class="at"><thead><tr><th>Pedido</th><th>Tienda</th><th>Monto</th><th>Estado</th></tr></thead><tbody>
+              <tr><td>#5001</td><td style="color:var(--mu)">TechCuba</td><td style="color:var(--gr);font-weight:600">$850</td><td><span class="badge bg">Pagado</span></td></tr>
+              <tr><td>#5000</td><td style="color:var(--mu)">Moda Havana</td><td style="color:var(--gr);font-weight:600">3,200 CUP</td><td><span class="badge ba">Enviado</span></td></tr>
+              <tr><td>#4999</td><td style="color:var(--mu)">Don Mario</td><td style="color:var(--gr);font-weight:600">900 CUP</td><td><span class="badge by">Pendiente</span></td></tr>
+              <tr><td>#4998</td><td style="color:var(--mu)">Academia</td><td style="color:var(--gr);font-weight:600">$75</td><td><span class="badge bg">Pagado</span></td></tr>
+              <tr><td>#4997</td><td style="color:var(--mu)">FerretCuba</td><td style="color:var(--gr);font-weight:600">$210</td><td><span class="badge br">Cancelado</span></td></tr>
+            </tbody></table>
+          </div>
+          <div class="ac2">
+            <div class="act2">Distribución de Planes</div>
+            <div class="dist"><div class="distrow"><span style="color:var(--mu)">Básico</span><span style="font-weight:600">142</span></div><div class="distbar"><div class="distfill" style="width:34%;background:var(--m2)"></div></div></div>
+            <div class="dist"><div class="distrow"><span style="color:var(--mu)">Pro</span><span style="color:var(--ac);font-weight:600">198</span></div><div class="distbar"><div class="distfill" style="width:47%;background:var(--ac)"></div></div></div>
+            <div class="dist"><div class="distrow"><span style="color:var(--mu)">Business</span><span style="color:var(--gr);font-weight:600">68</span></div><div class="distbar"><div class="distfill" style="width:16%;background:var(--gr)"></div></div></div>
+            <div class="dist"><div class="distrow"><span style="color:var(--mu)">Enterprise</span><span style="color:var(--go);font-weight:600">15</span></div><div class="distbar"><div class="distfill" style="width:4%;background:var(--go)"></div></div></div>
+          </div>
+        </div>
+        <div class="dbot">
+          <div class="ac2">
+            <div class="act2">Actividad Reciente</div>
+            <div class="actf">
+              <div class="ai2"><div class="aiico" style="background:var(--ad)">🏪</div><div><div class="aitxt">Nueva tienda registrada</div><div class="aitm">Electrónica Martínez · hace 5 min</div></div></div>
+              <div class="ai2"><div class="aiico" style="background:var(--gd)">💰</div><div><div class="aitxt">Pago Plan Pro recibido</div><div class="aitm">ModaCuba Store · hace 12 min</div></div></div>
+              <div class="ai2"><div class="aiico" style="background:var(--yd)">⭐</div><div><div class="aitxt">Nueva reseña 5 estrellas</div><div class="aitm">Academia Digital · hace 18 min</div></div></div>
+              <div class="ai2"><div class="aiico" style="background:rgba(255,61,87,.1)">🚨</div><div><div class="aitxt">Reporte de producto</div><div class="aitm">Pendiente de revisión · hace 25 min</div></div></div>
+            </div>
+          </div>
+          <div class="ac2">
+            <div class="act2">Resumen Financiero</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;justify-content:space-between;font-size:.8rem;padding:9px 12px;background:var(--s2);border-radius:8px"><span style="color:var(--mu)">Hoy</span><span style="color:var(--gr);font-weight:700">$480</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:.8rem;padding:9px 12px;background:var(--s2);border-radius:8px"><span style="color:var(--mu)">Esta semana</span><span style="color:var(--ac);font-weight:700">$3,240</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:.8rem;padding:9px 12px;background:var(--s2);border-radius:8px"><span style="color:var(--mu)">Este mes</span><span style="color:var(--go);font-weight:700">$14,820</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:.8rem;padding:9px 12px;background:var(--s2);border-radius:8px"><span style="color:var(--mu)">Comisiones pend.</span><span style="color:var(--or);font-weight:700">$276</span></div>
+            </div>
+          </div>
+          <div class="ac2">
+            <div class="act2">Acciones Rápidas</div>
+            <button class="qa" style="background:var(--ad);border:1px solid rgba(0,200,240,.2);color:var(--ac)" onclick="aNavTo('tiendas')">🏪 Gestionar Tiendas</button>
+            <button class="qa" style="background:var(--gd);border:1px solid rgba(0,232,150,.2);color:var(--gr)" onclick="aNavTo('usuarios')">👥 Ver Usuarios</button>
+            <button class="qa" style="background:var(--yd);border:1px solid rgba(245,200,66,.2);color:var(--go)" onclick="aNavTo('planes')">💎 Editar Planes</button>
+            <button class="qa" style="background:rgba(255,107,53,.1);border:1px solid rgba(255,107,53,.2);color:var(--or)" onclick="aNavTo('config')">⚙️ Configuración</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIENDAS -->
+      <div id="s-tiendas" class="asec">
+        <div class="sh2"><div><div class="sh2t">Tiendas Registradas</div><div class="sh2s">423 tiendas activas</div></div><div style="display:flex;gap:10px"><input class="asr" type="text" placeholder="🔍 Buscar tienda..." oninput="fTbl(this,'tt')"><button class="btn bp bsm">+ Nueva</button></div></div>
+        <div class="tw"><table class="at" id="tt">
+          <thead><tr><th>#</th><th>Tienda</th><th>Dueño</th><th>Plan</th><th>Productos</th><th>Ventas</th><th>Estado</th><th>Acción</th></tr></thead>
+          <tbody>
+            <tr><td style="color:var(--mu)">001</td><td><strong>🏪 TechCuba Store</strong></td><td style="color:var(--mu)">Roberto Castillo</td><td><span class="badge ba pb">Pro</span></td><td>148</td><td style="color:var(--gr);font-weight:600">$4,820</td><td><span class="badge bg">Activa</span></td><td><button class="btn bh bsm" onclick="openPM(this)">✏️ Plan</button></td></tr>
+            <tr><td style="color:var(--mu)">002</td><td><strong>👗 Moda Havana Style</strong></td><td style="color:var(--mu)">María Luisa Pérez</td><td><span class="badge bg pb">Business</span></td><td>312</td><td style="color:var(--gr);font-weight:600">$8,140</td><td><span class="badge bg">Activa</span></td><td><button class="btn bh bsm" onclick="openPM(this)">✏️ Plan</button></td></tr>
+            <tr><td style="color:var(--mu)">003</td><td><strong>🍕 Pizzería Don Mario</strong></td><td style="color:var(--mu)">Mario González</td><td><span class="badge bm pb">Básico</span></td><td>24</td><td style="color:var(--gr);font-weight:600">$1,200</td><td><span class="badge bg">Activa</span></td><td><button class="btn bh bsm" onclick="openPM(this)">✏️ Plan</button></td></tr>
+            <tr><td style="color:var(--mu)">004</td><td><strong>📚 Academia Digital Cuba</strong></td><td style="color:var(--mu)">Ana Rodríguez</td><td><span class="badge by pb">Enterprise</span></td><td>87</td><td style="color:var(--gr);font-weight:600">$12,600</td><td><span class="badge by">Prueba</span></td><td><button class="btn bh bsm" onclick="openPM(this)">✏️ Plan</button></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <!-- USUARIOS -->
+      <div id="s-usuarios" class="asec">
+        <div class="sh2"><div><div class="sh2t">Usuarios Registrados</div><div class="sh2s">5,312 usuarios</div></div><input class="asr" type="text" placeholder="🔍 Buscar usuario..." oninput="fTbl(this,'tu')"></div>
+        <div class="tw"><table class="at" id="tu">
+          <thead><tr><th>Usuario</th><th>Email</th><th>Rol</th><th>Registro</th><th>Estado</th><th>Acción</th></tr></thead>
+          <tbody>
+            <tr><td><div style="display:flex;align-items:center;gap:8px"><div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--ac),var(--gr));display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#000">RC</div>Roberto Castillo</div></td><td style="color:var(--mu)">r.castillo@email.cu</td><td><span class="badge ba">Vendedor</span></td><td style="color:var(--mu)">12 Ene 2025</td><td><span class="badge bg user-st">Activo</span></td><td><button class="btn bd bsm" onclick="tBlock(this)">🚫 Bloquear</button></td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:8px"><div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--or),var(--go));display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#000">ML</div>María Luisa Pérez</div></td><td style="color:var(--mu)">ml.perez@gmail.com</td><td><span class="badge ba">Vendedor</span></td><td style="color:var(--mu)">5 Feb 2025</td><td><span class="badge bg user-st">Activo</span></td><td><button class="btn bd bsm" onclick="tBlock(this)">🚫 Bloquear</button></td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:8px"><div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--gr),var(--ac));display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#000">JM</div>Jorge Morejón</div></td><td style="color:var(--mu)">j.morejon@nauta.cu</td><td><span class="badge by">Gestor</span></td><td style="color:var(--mu)">20 Mar 2025</td><td><span class="badge bg user-st">Activo</span></td><td><button class="btn bd bsm" onclick="tBlock(this)">🚫 Bloquear</button></td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:8px"><div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--re),var(--or));display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#fff">LP</div>Luisa Pérez</div></td><td style="color:var(--mu)">luisa.p@email.cu</td><td><span class="badge bg">Afiliado</span></td><td style="color:var(--mu)">1 Abr 2025</td><td><span class="badge br user-st">Bloqueado</span></td><td><button class="btn bg2 bsm" onclick="tBlock(this)">✅ Activar</button></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <!-- PEDIDOS -->
+      <div id="s-pedidos" class="asec">
+        <div class="sh2"><div><div class="sh2t">Todos los Pedidos</div><div class="sh2s">1,247 pedidos este mes</div></div><input class="asr" type="text" placeholder="🔍 Buscar pedido..." oninput="fTbl(this,'tped')"></div>
+        <div class="tw"><table class="at" id="tped">
+          <thead><tr><th>ID</th><th>Cliente</th><th>Tienda</th><th>Producto</th><th>Total</th><th>Moneda</th><th>Estado</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:600">#5001</td><td style="color:var(--mu)">Carlos M.</td><td>TechCuba</td><td style="color:var(--mu)">iPhone 14</td><td style="color:var(--gr);font-weight:700">$850</td><td>USD</td><td><span class="badge bg">Pagado</span></td></tr>
+            <tr><td style="font-weight:600">#5000</td><td style="color:var(--mu)">Ana R.</td><td>Moda Havana</td><td style="color:var(--mu)">Conjunto</td><td style="color:var(--gr);font-weight:700">3,200</td><td>CUP</td><td><span class="badge ba">Enviado</span></td></tr>
+            <tr><td style="font-weight:600">#4999</td><td style="color:var(--mu)">Luis G.</td><td>Don Mario</td><td style="color:var(--mu)">Pizza x2</td><td style="color:var(--gr);font-weight:700">900</td><td>CUP</td><td><span class="badge by">Pendiente</span></td></tr>
+            <tr><td style="font-weight:600">#4998</td><td style="color:var(--mu)">Marta L.</td><td>Academia Digital</td><td style="color:var(--mu)">Curso Diseño</td><td style="color:var(--gr);font-weight:700">$25</td><td>USD</td><td><span class="badge br">Cancelado</span></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <!-- PLANES -->
+      <div id="s-planes" class="asec">
+        <div class="sh2"><div><div class="sh2t">Gestión de Planes y Membresías</div><div class="sh2s">Edita precios y límites de cada plan</div></div></div>
+        <div class="pegr">
+          <div class="pecard"><div class="pehead"><div class="penm">🌱 Plan Básico</div><span class="badge bm">142 activos</span></div><div class="pef"><label class="pelbl">Precio mensual (USD)</label><input class="pein" type="number" value="5"></div><div class="pef"><label class="pelbl">Precio anual (USD/mes)</label><input class="pein" type="number" value="3"></div><div class="pef"><label class="pelbl">Límite de productos</label><input class="pein" type="number" value="50"></div><div class="pef"><label class="pelbl">Días de prueba gratis</label><input class="pein" type="number" value="14"></div><button class="btn bh bbl" style="margin-top:6px" onclick="toast('✅ Plan Básico guardado')">💾 Guardar Cambios</button></div>
+          <div class="pecard pop"><div class="pehead"><div class="penm">🚀 Plan Pro</div><span class="badge ba">198 activos · Popular</span></div><div class="pef"><label class="pelbl">Precio mensual (USD)</label><input class="pein" type="number" value="15"></div><div class="pef"><label class="pelbl">Precio anual (USD/mes)</label><input class="pein" type="number" value="10"></div><div class="pef"><label class="pelbl">Límite de productos</label><input class="pein" type="number" value="500"></div><div class="pef"><label class="pelbl">Días de prueba gratis</label><input class="pein" type="number" value="14"></div><button class="btn bp bbl" style="margin-top:6px" onclick="toast('✅ Plan Pro guardado')">💾 Guardar Cambios</button></div>
+          <div class="pecard"><div class="pehead"><div class="penm">💼 Plan Business</div><span class="badge bg">68 activos</span></div><div class="pef"><label class="pelbl">Precio mensual (USD)</label><input class="pein" type="number" value="35"></div><div class="pef"><label class="pelbl">Precio anual (USD/mes)</label><input class="pein" type="number" value="24"></div><div class="pef"><label class="pelbl">Límite de productos</label><input class="pein" type="number" value="99999" placeholder="Ilimitado"></div><div class="pef"><label class="pelbl">Días de prueba gratis</label><input class="pein" type="number" value="14"></div><button class="btn bg2 bbl" style="margin-top:6px" onclick="toast('✅ Plan Business guardado')">💾 Guardar Cambios</button></div>
+          <div class="pecard eli"><div class="pehead"><div class="penm">🌟 Plan Enterprise</div><span class="badge by">15 activos · Élite</span></div><div class="pef"><label class="pelbl">Precio mensual (USD)</label><input class="pein" type="number" value="80"></div><div class="pef"><label class="pelbl">Precio anual (USD/mes)</label><input class="pein" type="number" value="56"></div><div class="pef"><label class="pelbl">Comisión afiliados (%)</label><input class="pein" type="number" value="40"></div><div class="pef"><label class="pelbl">Días de prueba gratis</label><input class="pein" type="number" value="14"></div><button class="btn by2 bbl" style="margin-top:6px" onclick="toast('✅ Plan Enterprise guardado')">💾 Guardar Cambios</button></div>
+        </div>
+      </div>
+
+      <!-- AFILIADOS -->
+      <div id="s-afiliados" class="asec">
+        <div class="sh2"><div><div class="sh2t">Programa de Afiliados y Gestores</div><div class="sh2s">Gestiona comisiones y pagos pendientes</div></div></div>
+        <div class="krow4" style="grid-template-columns:repeat(3,1fr);margin-bottom:18px">
+          <div class="kc kg"><div class="kclbl">Comisiones Pagadas</div><div class="kcval">$2,840</div><div class="kctr">Este mes</div></div>
+          <div class="kc kb"><div class="kclbl">Afiliados Activos</div><div class="kcval">248</div><div class="kctr">↑ +12 este mes</div></div>
+          <div class="kc ky"><div class="kclbl">Comisión 1er Pago</div><div class="kcval">40%</div><div class="kctr">Global configurado</div></div>
+        </div>
+        <div class="tw"><table class="at">
+          <thead><tr><th>Afiliado</th><th>Tipo</th><th>Referidos</th><th>Ganado Total</th><th>Pendiente</th><th>Acción</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:600">Jorge Morejón</td><td><span class="badge ba">Gestor</span></td><td>32</td><td style="color:var(--gr);font-weight:600">$384</td><td style="color:var(--go);font-weight:600">$60</td><td><button class="btn bg2 bsm" onclick="toast('💸 Pago procesado correctamente')">💸 Pagar</button></td></tr>
+            <tr><td style="font-weight:600">Carmen Silva</td><td><span class="badge bg">Afiliado</span></td><td>18</td><td style="color:var(--gr);font-weight:600">$216</td><td style="color:var(--go);font-weight:600">$36</td><td><button class="btn bg2 bsm" onclick="toast('💸 Pago procesado correctamente')">💸 Pagar</button></td></tr>
+            <tr><td style="font-weight:600">Pedro Alarcón</td><td><span class="badge by">Partner</span></td><td>45</td><td style="color:var(--gr);font-weight:600">$900</td><td style="color:var(--go);font-weight:600">$180</td><td><button class="btn bg2 bsm" onclick="toast('💸 Pago procesado correctamente')">💸 Pagar</button></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <!-- CONFIG -->
+      <div id="s-config" class="asec">
+        <div class="sh2"><div><div class="sh2t">Configuración del Sistema</div></div></div>
+        <div class="cfgr">
+          <div class="cfcard">
+            <div class="cftit">⚙️ General</div>
+            <div class="pef"><label class="pelbl">Nombre del sitio</label><input class="pein" type="text" value="CubaMarket"></div>
+            <div class="pef"><label class="pelbl">Email de contacto</label><input class="pein" type="email" value="hola@cubamarket.com"></div>
+            <div class="pef"><label class="pelbl">WhatsApp de soporte</label><input class="pein" type="text" value="+53 5 000 0000"></div>
+            <div class="pef"><label class="pelbl">Días de prueba gratis (global)</label><input class="pein" type="number" value="14"></div>
+            <button class="btn bp bbl" style="margin-top:6px" onclick="toast('✅ Configuración guardada')">💾 Guardar</button>
+          </div>
+          <div class="cfcard">
+            <div class="cftit">💱 Tasas de Cambio</div>
+            <div class="pef"><label class="pelbl">1 USD en CUP</label><input class="pein" type="number" value="350"></div>
+            <div class="pef"><label class="pelbl">1 EUR en CUP</label><input class="pein" type="number" value="380"></div>
+            <div class="pef"><label class="pelbl">1 MLC en CUP</label><input class="pein" type="number" value="230"></div>
+            <div style="background:var(--ad);border:1px solid rgba(0,200,240,.15);border-radius:8px;padding:10px 14px;font-size:.78rem;color:var(--mu);margin-bottom:12px">💡 Las tasas se actualizan automáticamente cada hora. Puedes sobreescribirlas aquí.</div>
+            <button class="btn bg2 bbl" onclick="toast('🔄 Tasas actualizadas correctamente')">🔄 Actualizar Tasas</button>
+          </div>
+          <div class="cfcard">
+            <div class="cftit">🔐 Seguridad Admin</div>
+            <div class="pef"><label class="pelbl">Usuario admin</label><input class="pein" type="text" value="admin"></div>
+            <div class="pef"><label class="pelbl">Nueva contraseña</label><input class="pein" type="password" placeholder="••••••••"></div>
+            <div class="pef"><label class="pelbl">Confirmar contraseña</label><input class="pein" type="password" placeholder="••••••••"></div>
+            <button class="btn bd bbl" style="margin-top:6px" onclick="toast('🔐 Credenciales actualizadas')">🔐 Cambiar Credenciales</button>
+          </div>
+          <div class="cfcard">
+            <div class="cftit">📢 Ajustes del Sitio</div>
+            <div class="trow"><span>Barra de oferta superior</span><label class="tsw"><input type="checkbox" checked><div class="ttrack"></div><div class="tknob"></div></label></div>
+            <div class="trow"><span>Popup de bienvenida</span><label class="tsw"><input type="checkbox"><div class="ttrack"></div><div class="tknob"></div></label></div>
+            <div class="trow"><span>Modo mantenimiento</span><label class="tsw"><input type="checkbox"><div class="ttrack"></div><div class="tknob"></div></label></div>
+            <div class="trow"><span>Registro de nuevas tiendas</span><label class="tsw"><input type="checkbox" checked><div class="ttrack"></div><div class="tknob"></div></label></div>
+            <div class="trow"><span>Marketplace público</span><label class="tsw"><input type="checkbox" checked><div class="ttrack"></div><div class="tknob"></div></label></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /acont -->
+  </main>
+</div><!-- /admin-panel -->
+
+<!-- MODAL -->
+<div id="adm-modal">
+  <div class="mbox">
+    <div class="mhd"><div class="mhdt">Cambiar Plan de Tienda</div><button class="mclose" onclick="closeModal()">✕</button></div>
+    <button class="pch" onclick="setPlan('Básico','bm')">🌱 Básico — $5/mes</button>
+    <button class="pch pop2" onclick="setPlan('Pro','ba')">🚀 Pro — $15/mes ⭐ Popular</button>
+    <button class="pch" style="border-color:rgba(0,232,150,.25);color:var(--gr);background:var(--gd)" onclick="setPlan('Business','bg')">💼 Business — $35/mes</button>
+    <button class="pch eli2" onclick="setPlan('Enterprise','by')">👑 Enterprise — $80/mes</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script>
+/* ---- ADMIN ROUTE ---- */
+(function(){
+  if(new URLSearchParams(location.search).has('admin')){
+    document.getElementById('main-site').style.display='none';
+    document.getElementById('admin-login').style.display='flex';
+  }
+})();
+
+/* ---- NAV ---- */
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('sc',scrollY>50));
+let mOpen=false;
+function toggleM(){mOpen=!mOpen;document.getElementById('mmenu').style.display=mOpen?'flex':'none'}
+function closeM(){mOpen=false;document.getElementById('mmenu').style.display='none'}
+
+/* ---- REVEAL ---- */
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('on'),i*70);ro.unobserve(e.target);}});
+},{threshold:0.07});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+/* ---- CURRENCY ---- */
+function setCur(el){document.querySelectorAll('.cpill').forEach(p=>p.classList.remove('on'));el.classList.add('on')}
+
+/* ---- CAT PILLS ---- */
+function setCat(el){document.querySelectorAll('.cpill2').forEach(p=>p.classList.remove('on'));el.classList.add('on')}
+
+/* ---- PRICING TOGGLE ---- */
+function setTog(m){
+  document.getElementById('togM').classList.toggle('on',m==='m');
+  document.getElementById('togY').classList.toggle('on',m==='y');
+  document.querySelectorAll('.pv').forEach(el=>el.textContent=el.dataset[m]);
+  document.querySelectorAll('.pc').forEach(el=>el.textContent=Number(el.dataset[m]).toLocaleString());
+}
+
+/* ---- SIMULATOR ---- */
+const SN=['Básico ($5/mes)','Pro ($15/mes)','Business ($35/mes)','Enterprise ($80/mes)'];
+const SP=[5,15,35,80];
+function calcSim(){
+  const r=+document.getElementById('sr').value,p=+document.getElementById('sp').value-1;
+  document.getElementById('sref').textContent=r;
+  document.getElementById('splan').textContent=SN[p];
+  document.getElementById('sout').textContent='$'+Math.round(r*SP[p]*.4)+' USD';
+}
+
+/* ---- FAQ ---- */
+function tFaq(el){el.closest('.fi').classList.toggle('open')}
+
+/* ---- ADMIN LOGIN ---- */
+function adminLogin(){
+  const u=document.getElementById('al-u').value.trim(),p=document.getElementById('al-p').value;
+  const e=document.getElementById('al-err');
+  if(u==='admin'&&p==='cubamarket2025'){
+    document.getElementById('admin-login').style.display='none';
+    document.getElementById('admin-panel').style.display='flex';
+  }else{
+    e.style.display='block';document.getElementById('al-p').value='';
+    setTimeout(()=>e.style.display='none',3000);
+  }
+}
+document.addEventListener('keydown',ev=>{if(ev.key==='Enter'&&document.getElementById('admin-login').style.display==='flex')adminLogin()});
+
+function adminLogout(){
+  document.getElementById('admin-panel').style.display='none';
+  document.getElementById('admin-login').style.display='flex';
+  document.getElementById('al-u').value='';document.getElementById('al-p').value='';
+}
+
+/* ---- ADMIN NAV ---- */
+const TITLES={dashboard:'Dashboard',tiendas:'Tiendas',usuarios:'Usuarios',pedidos:'Pedidos',planes:'Planes y Membresías',afiliados:'Programa de Afiliados',config:'Configuración del Sistema'};
+function aN(btn){
+  document.querySelectorAll('.anb').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  const s=btn.dataset.s;
+  document.querySelectorAll('.asec').forEach(x=>x.classList.remove('on'));
+  document.getElementById('s-'+s).classList.add('on');
+  document.getElementById('adm-title').textContent=TITLES[s]||s;
+}
+function aNavTo(s){const b=document.querySelector(`.anb[data-s="${s}"]`);if(b)aN(b)}
+
+/* ---- CLOCK ---- */
+function clk(){const n=new Date(),z=v=>String(v).padStart(2,'0');const el=document.getElementById('aclock');if(el)el.textContent=`${z(n.getHours())}:${z(n.getMinutes())}:${z(n.getSeconds())}`}
+setInterval(clk,1000);clk();
+
+/* ---- TABLE FILTER ---- */
+function fTbl(inp,id){
+  const q=inp.value.toLowerCase();
+  document.querySelectorAll(`#${id} tbody tr`).forEach(tr=>tr.style.display=tr.textContent.toLowerCase().includes(q)?'':'none');
+}
+
+/* ---- PLAN MODAL ---- */
+let activeRow=null;
+function openPM(btn){activeRow=btn.closest('tr');document.getElementById('adm-modal').style.display='flex'}
+function closeModal(){document.getElementById('adm-modal').style.display='none'}
+document.getElementById('adm-modal').addEventListener('click',function(e){if(e.target===this)closeModal()});
+
+function setPlan(name,cls){
+  if(!activeRow)return;
+  const td=activeRow.cells[3];
+  td.innerHTML=`<span class="badge ${cls} pb">${name}</span>`;
+  closeModal();toast('✅ Plan cambiado a '+name);
+}
+
+/* ---- TOGGLE BLOCK ---- */
+function tBlock(btn){
+  const row=btn.closest('tr');
+  const st=row.querySelector('.user-st');
+  const blocked=st.classList.contains('br');
+  if(blocked){
+    st.className='badge bg user-st';st.textContent='Activo';
+    btn.textContent='🚫 Bloquear';btn.className='btn bd bsm';
+    toast('✅ Usuario activado');
+  }else{
+    st.className='badge br user-st';st.textContent='Bloqueado';
+    btn.textContent='✅ Activar';btn.className='btn bg2 bsm';
+    toast('🚫 Usuario bloqueado');
+  }
+}
+
+/* ---- TOAST ---- */
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.style.opacity='1';t.style.transform='translateY(0)';
+  clearTimeout(window._tt);
+  window._tt=setTimeout(()=>{t.style.opacity='0';t.style.transform='translateY(20px)'},2800);
+}
+</script>
+</body>
+</html>
